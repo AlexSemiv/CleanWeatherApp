@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mainForecastFragment"
+        android:title="My forecast"
+        android:icon="@drawable/ic_my_location"
+        />
+    <item
+        android:id="@+id/searchForecastFragment"
+        android:title="Search forecast"
+        android:icon="@drawable/ic_search_location"/>
+</menu>

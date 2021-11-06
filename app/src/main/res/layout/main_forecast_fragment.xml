@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/mainFragmentSwipeRefreshLayout">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/mainFragmentAppBarLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/mainFragmentToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:menu="@menu/main_fragment_menu"
+            app:subtitle="updated 18:04 PM"
+            app:title="London" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/ImageViewPressure"
+        style="@style/StaticImageView"
+        android:src="@drawable/ic_barometer"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
+        app:layout_constraintEnd_toStartOf="@+id/ImageViewHumidity"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainFragmentHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/ImageViewHumidity"
+        app:layout_constraintStart_toStartOf="@+id/ImageViewHumidity"
+        app:layout_constraintTop_toBottomOf="@+id/ImageViewHumidity"
+        tools:text="20%" />
+
+    <ImageView
+        android:id="@+id/ImageViewHumidity"
+        style="@style/StaticImageView"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
+        app:layout_constraintEnd_toStartOf="@+id/ImageViewWindSpeed"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ImageViewPressure"
+        app:layout_constraintTop_toTopOf="@+id/guidelineOther"
+        android:src="@drawable/ic_humidity"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainFragmentPressure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/ImageViewPressure"
+        app:layout_constraintStart_toStartOf="@+id/ImageViewPressure"
+        app:layout_constraintTop_toBottomOf="@+id/ImageViewPressure"
+        tools:text="1045mBar" />
+
+    <ImageView
+        android:id="@+id/ImageViewWindSpeed"
+        style="@style/StaticImageView"
+        android:src="@drawable/ic_wind"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ImageViewHumidity"
+        app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainFragmentWindSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/ImageViewWindSpeed"
+        app:layout_constraintStart_toStartOf="@+id/ImageViewWindSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/ImageViewWindSpeed"
+        tools:text="5.69m/sec" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/mainFragmentIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        style="@style/LottieStyle"
+        app:layout_constraintBottom_toTopOf="@+id/mainFragmentTemp"
+        app:layout_constraintStart_toStartOf="@+id/mainFragmentTemp"
+        app:layout_constraintTop_toTopOf="@+id/mainFragmentDescription"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainFragmentDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/mainFragmentTemp"
+        app:layout_constraintStart_toEndOf="@+id/mainFragmentIcon"
+        tools:text="Cloudy" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainFragmentTemp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textSize="128sp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineMain"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineMain"
+        android:text="15°" />
+
+    <ImageView
+        android:id="@+id/ImageViewSunset"
+        style="@style/StaticImageView"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_sunset"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineMain"
+        app:layout_constraintStart_toEndOf="@+id/mainFragmentTemp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainFragmentSunset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/ImageViewSunset"
+        app:layout_constraintTop_toTopOf="@+id/ImageViewSunset"
+        tools:text="21:00" />
+
+    <ImageView
+        android:id="@+id/ImageViewSunrise"
+        style="@style/StaticImageView"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_sunrise"
+        app:layout_constraintStart_toEndOf="@+id/mainFragmentTemp"
+        app:layout_constraintTop_toTopOf="@+id/guidelineMain" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/mainFragmentSunrise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ImageViewSunrise"
+        app:layout_constraintStart_toEndOf="@+id/ImageViewSunrise"
+        tools:text="8:00" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/mainFragmentProgressIndicator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineChart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/mainFragmentChartSwitch"
+        android:text="Daily/Hourly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineChart"
+        app:layout_constraintEnd_toEndOf="@+id/lineChart" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineChart" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineOther"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

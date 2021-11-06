@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        android:defaultValue="metric"
+        android:entries="@array/units_entries"
+        android:entryValues="@array/units_values"
+        android:icon="@drawable/ic_units"
+        android:key="units"
+        android:summary="Units of measure for temperature and wind speed"
+        android:title="Units of measurement"
+        app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>

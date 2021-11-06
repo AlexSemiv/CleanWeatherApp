@@ -1,16 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.cleanweatherapp"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -30,6 +31,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -45,4 +49,43 @@ dependencies {
 
     implementation project(path: ':domain')
     implementation project(path: ':data')
+
+    def mpChartVersion = "3.1.0"
+    implementation "com.github.PhilJay:MPAndroidChart:$mpChartVersion"
+
+    def lottieAnimationsVersion = "4.1.0"
+    implementation "com.airbnb.android:lottie:$lottieAnimationsVersion"
+
+    def preferenceVersion = "1.1.1"
+    implementation "androidx.preference:preference-ktx:$preferenceVersion"
+
+    def retrofitVersion = "2.9.0"
+    def interceptorVersion = "4.9.1"
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$interceptorVersion"
+
+    def swipeLayoutVersion = "1.1.0"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeLayoutVersion"
+
+    def easyPermissionsVersion = "3.0.0"
+    implementation "pub.devrel:easypermissions:$easyPermissionsVersion"
+
+    def dagger_version = "2.40"
+    implementation "com.google.dagger:dagger-android:$dagger_version"
+    kapt "com.google.dagger:dagger-android-processor:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    def navigationVersion = "2.3.5"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    def coroutinesVersion = "1.5.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+
+    def coroutinesScopeVersion = "2.4.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$coroutinesScopeVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$coroutinesScopeVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$coroutinesScopeVersion"
 }

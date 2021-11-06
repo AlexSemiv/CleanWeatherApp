@@ -7,4 +7,113 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="colorPrimary">@color/purple_500</color>
+    <color name="colorPrimaryDark">@color/purple_700</color>
+    <color name="colorAccent">@color/purple_200</color>
+    <color name="darkBackground">#801D0214</color>
+
+    <!-- Clear day (28. Sweet Morning)
+        01d.png
+     -->
+    <color name="sweet">#ff5f6d</color>
+    <color name="morning">#ffc371</color>
+    <!-- Clear night (17. Frost)
+        01n.png
+     -->
+    <color name="fr">#000428</color>
+    <color name="ost">#004e92</color>
+
+    <!-- Few clouds day (27. Decent)
+        02d.png
+     -->
+    <color name="dec">#4ca1af</color>
+    <color name="ent">#c4e0e5</color>
+    <!-- Few clouds night (34. Sea Blue)
+        02n.png
+    -->
+    <color name="sea">#2b5876</color>
+    <color name="blue">#4e4376</color>
+
+    <!-- Scattered clouds (50. Shades of Grey)
+        03d.png
+    -->
+    <color name="shades">#bdc3c7</color>
+    <color name="grey">#2c3e50</color>
+    <!-- Scattered clouds ()
+        03n.png
+    -->
+    <color name="scat">#4A707A</color>
+    <color name="sgrey">#416080</color>
+
+    <!-- Broken clouds ()
+        04d.png
+    -->
+    <color name="dbroken">#94B0B7</color>
+    <color name="dclouds">#DDDDDA</color>
+    <!-- Broken clouds ()
+        04n.png
+    -->
+    <color name="nbroken">#033A60</color>
+    <color name="nclouds">#416080</color>
+
+    <!-- Shower rain ()
+        09d.png
+    -->
+    <color name="dshower">#004E9A</color>
+    <color name="drain">#428CD4</color>
+    <!-- Shower rain ()
+        09n.png
+    -->
+    <color name="nshower">#041B2D</color>
+    <color name="nrain">#004E9A</color>
+
+    <!-- Rain ()
+        10d.png
+    -->
+    <color name="dra">#0191B4</color>
+    <color name="din">#F8D90F</color>
+    <!-- Rain ()
+        10n.png
+    -->
+    <color name="nra">#004E9A</color>
+    <color name="nin">#0191B4</color>
+
+    <!-- Thunderstorm ()
+        11d.png
+    -->
+    <color name="dthun">#120C6E</color>
+    <color name="dder">#243B55</color>
+    <!-- Thunderstorm (31. Royal)
+        11n.png
+    -->
+    <color name="nthun">#141E30</color>
+    <color name="nder">#243B55</color>
+
+    <!-- Snow ()
+        13d.png
+    -->
+    <color name="dsn">#9B9B9B</color>
+    <color name="dow">#E7E7E7</color>
+    <!-- Snow ()
+        13n.png
+    -->
+    <color name="nsn">#455054</color>
+    <color name="now">#9B9B9B</color>
+
+    <!-- Fog (5. Mauve)
+        50d.png
+    -->
+    <color name="dpig">#734b6d</color>
+    <color name="dlet">#C2649A</color>
+    <!-- Fog ()
+        50n.png
+    -->
+    <color name="npig">#42275a</color>
+    <color name="nlet">#734b6d</color>
+
+    <!-- Storm (12. Kashmir)
+    <color name="kash">#614385</color>
+    <color name="mir">#516395</color>-->
+
 </resources>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LinearLayoutStyle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="12.02.2001" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentTempAndFeelsLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="12° (feels like 10°)" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentDevPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="Dev point: 7°" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentUvi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="Uvi: 0.99" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentClouds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="Clouds: 100" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentVisibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="Visibility: 10000" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentWindSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="Wind speed: 5.95" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentWindDeg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="Wind deg: 206" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/dialogFragmentWindGust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        tools:text="Wind gust: 8.33" />
+
+</LinearLayout>
