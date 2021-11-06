@@ -59,12 +59,6 @@ dependencies {
     def preferenceVersion = "1.1.1"
     implementation "androidx.preference:preference-ktx:$preferenceVersion"
 
-    def retrofitVersion = "2.9.0"
-    def interceptorVersion = "4.9.1"
-    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$interceptorVersion"
-
     def swipeLayoutVersion = "1.1.0"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swipeLayoutVersion"
 
