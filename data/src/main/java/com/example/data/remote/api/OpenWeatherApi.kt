@@ -1,12 +1,14 @@
 package com.example.data.remote.api
 
-import com.example.data.remote.models.current.MainForecastNetworkModel
-import com.example.data.remote.models.search.SearchForecastNetworkModel
+import com.example.data.data_models.current.MainForecastDataModel
+import com.example.data.data_models.search.SearchForecastDataModel
+import com.example.data.remote.network_models.current.MainForecastNetworkModel
+import com.example.data.remote.network_models.search.SearchForecastNetworkModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-internal interface OpenWeatherApi {
+interface OpenWeatherApi {
 
     companion object {
         private const val API_KEY = "9db8ad32e88e874c9d211366f8394486"
@@ -21,7 +23,7 @@ internal interface OpenWeatherApi {
         @Query("appid")
         key: String = API_KEY,
         @Query("exclude")
-        exclude: String = "minutely",
+        exclude: String = "minutely,alerts",
         @Query("units")
         units: String = "metric",
         @Query("lang")

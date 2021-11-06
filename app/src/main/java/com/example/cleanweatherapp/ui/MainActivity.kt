@@ -2,7 +2,6 @@ package com.example.cleanweatherapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cleanweatherapp.R

@@ -3,7 +3,6 @@ package com.example.cleanweatherapp.ui.detail
 import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.fragment.app.DialogFragment
 import com.example.cleanweatherapp.base.BaseDialogFragment
 import com.example.cleanweatherapp.databinding.MainForecastDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder

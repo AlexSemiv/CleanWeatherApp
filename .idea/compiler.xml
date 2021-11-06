@@ -3,7 +3,9 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
       <module name="CleanWeatherApp.app" target="11" />
+      <module name="CleanWeatherApp.common" target="11" />
       <module name="CleanWeatherApp.data" target="11" />
+      <module name="CleanWeatherApp.presentation" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

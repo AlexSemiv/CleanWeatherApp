@@ -1,16 +1,11 @@
 package com.example.cleanweatherapp.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
-import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.cleanweatherapp.R
 import com.example.cleanweatherapp.base.BaseFragment
-import com.example.cleanweatherapp.databinding.MainForecastDialogBinding
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
-import com.example.cleanweatherapp.ui.MainActivity
 
 class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
 
