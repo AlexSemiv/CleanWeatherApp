@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.cleanweatherapp.R
-import com.example.cleanweatherapp.base.BaseFragment
+import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.SettingsFragmentBinding
 
 class SettingsFragment: BaseFragment<SettingsFragmentBinding>() {

@@ -1,6 +1,6 @@
 package com.example.cleanweatherapp.di.modules
 
-import com.example.data.remote.api.OpenWeatherApi
+import com.example.remote.api.OpenWeatherApi
 import com.example.domain.qualifiers.ApplicationScope
 import dagger.Module
 import dagger.Provides

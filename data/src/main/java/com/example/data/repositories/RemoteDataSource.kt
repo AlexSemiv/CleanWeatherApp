@@ -1,12 +1,12 @@
 package com.example.data.repositories
 
-import com.example.data.data_models.current.MainForecastDataModel
+import com.example.data.models.current.CurrentForecastDataModel
 
 interface RemoteDataSource {
 
-    suspend fun getMainForecast(
+    suspend fun getCurrentForecast(
         latitude: Double,
         longitude: Double,
         units: String
-    ): MainForecastDataModel
+    ): CurrentForecastDataModel
 }

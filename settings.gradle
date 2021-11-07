@@ -1,6 +1,8 @@
 rootProject.name = "CleanWeatherApp"
 include ':app'
 include ':data'
-include ':domain'
 include ':presentation'
 include ':common'
+include ':remote'
+include ':domain'
+include ':domain'

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.navigation.fragment.findNavController
 import com.example.cleanweatherapp.R
-import com.example.cleanweatherapp.base.BaseFragment
+import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
 
 class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {

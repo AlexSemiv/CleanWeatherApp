@@ -1,9 +1,11 @@
 package com.example.cleanweatherapp.di.modules
 
 import com.example.common.other.Mapper
-import com.example.data.data_models.current.MainForecastDataModel
-import com.example.data.remote.mappers.MainNetworkDataMapper
-import com.example.data.remote.network_models.current.MainForecastNetworkModel
+import com.example.data.mappers.CurrentForecastDataDomainMapper
+import com.example.data.models.current.CurrentForecastDataModel
+import com.example.domain.models.current.CurrentForecastDomainModel
+import com.example.remote.mappers.CurrentForecastNetworkDataMapper
+import com.example.remote.models.current.CurrentForecastNetworkModel
 import dagger.Binds
 import dagger.Module
 
@@ -11,7 +13,12 @@ import dagger.Module
 abstract class MapperModule {
 
     @Binds
-    abstract fun bindsMainForecastNetworkDataMapper(
-        mapper: MainNetworkDataMapper
-    ): Mapper<MainForecastNetworkModel, MainForecastDataModel>
+    abstract fun bindsCurrentForecastNetworkDataMapper(
+        mapper: CurrentForecastNetworkDataMapper
+    ): Mapper<CurrentForecastNetworkModel, CurrentForecastDataModel>
+
+    @Binds
+    abstract fun bindsCurrentForecastDataDomainMapper(
+        mapper: CurrentForecastDataDomainMapper
+    ): Mapper<CurrentForecastDataModel, CurrentForecastDomainModel>
 }

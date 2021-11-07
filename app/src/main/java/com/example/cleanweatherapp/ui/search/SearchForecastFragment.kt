@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import com.example.cleanweatherapp.R
-import com.example.cleanweatherapp.base.BaseFragment
+import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.SearchForecastFragmentBinding
 
 class SearchForecastFragment: BaseFragment<SearchForecastFragmentBinding>() {

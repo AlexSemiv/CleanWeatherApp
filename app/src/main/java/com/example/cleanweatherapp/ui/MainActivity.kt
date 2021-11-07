@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.cleanweatherapp.R
-import com.example.cleanweatherapp.base.BaseActivity
+import com.example.common.base.BaseActivity
 import com.example.cleanweatherapp.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
