@@ -7,6 +7,7 @@ import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.lang.Exception
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -20,7 +21,17 @@ class RepositoryImpl @Inject constructor(
         units: String
     ): Flow<Resource<CurrentForecastDomainModel>> {
         return flow {
-
+            try {
+                val currentDataForecast = remoteDataSource.getCurrentForecast(
+                    latitude = latitude,
+                    longitude = longitude,
+                    units = units
+                )
+                val currentDomainForecast = mapper.from(currentDataForecast)
+                emit(Resource.Success(data = currentDomainForecast))
+            } catch (e: Exception) {
+                emit(Resource.Error(message = e.message ?: ":("))
+            }
         }
     }
 }
