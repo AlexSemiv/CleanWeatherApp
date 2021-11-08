@@ -3,8 +3,9 @@ package com.example.data.mappers
 import com.example.common.other.Mapper
 import com.example.data.models.current.CurrentForecastDataModel
 import com.example.domain.models.current.*
+import javax.inject.Inject
 
-class CurrentForecastDataDomainMapper: Mapper<CurrentForecastDataModel, CurrentForecastDomainModel> {
+class CurrentForecastDataDomainMapper @Inject constructor(): Mapper<CurrentForecastDataModel, CurrentForecastDomainModel> {
     override fun from(input: CurrentForecastDataModel?): CurrentForecastDomainModel {
         return CurrentForecastDomainModel(
             current = Current(
@@ -20,10 +21,10 @@ class CurrentForecastDataDomainMapper: Mapper<CurrentForecastDataModel, CurrentF
                 uvi = input?.current?.uvi,
                 visibility = input?.current?.visibility,
                 weatherCurrent = Weather(
-                    description = input?.current?.weatherCurrent?.description,
-                    icon = input?.current?.weatherCurrent?.icon,
-                    id = input?.current?.weatherCurrent?.id,
-                    main = input?.current?.weatherCurrent?.main
+                    description = input?.current?.weather?.description,
+                    icon = input?.current?.weather?.icon,
+                    id = input?.current?.weather?.id,
+                    main = input?.current?.weather?.main
                 ),
                 wind_deg = input?.current?.wind_deg,
                 wind_gust = input?.current?.wind_gust,

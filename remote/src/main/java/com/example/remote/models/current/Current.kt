@@ -10,9 +10,9 @@ data class Current(
     val sunrise: Int?,
     val sunset: Int?,
     val temp: Double?,
-    val uvi: Int?,
+    val uvi: Double?,
     val visibility: Int?,
-    val weatherCurrent: List<Weather>?,
+    val weather: List<Weather>?,
     val wind_deg: Int?,
     val wind_gust: Double?,
     val wind_speed: Double?

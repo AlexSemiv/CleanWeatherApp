@@ -3,8 +3,9 @@ package com.example.remote.mappers
 import com.example.common.other.Mapper
 import com.example.data.models.current.*
 import com.example.remote.models.current.CurrentForecastNetworkModel
+import javax.inject.Inject
 
-class CurrentForecastNetworkDataMapper: Mapper<CurrentForecastNetworkModel, CurrentForecastDataModel> {
+class CurrentForecastNetworkDataMapper @Inject constructor(): Mapper<CurrentForecastNetworkModel, CurrentForecastDataModel> {
 
     override fun from(input: CurrentForecastNetworkModel?): CurrentForecastDataModel {
         return CurrentForecastDataModel(
@@ -20,11 +21,11 @@ class CurrentForecastNetworkDataMapper: Mapper<CurrentForecastNetworkModel, Curr
                 temp = input?.current?.temp,
                 uvi = input?.current?.uvi,
                 visibility = input?.current?.visibility,
-                weatherCurrent = Weather(
-                    description = input?.current?.weatherCurrent?.getOrNull(0)?.description,
-                    icon = input?.current?.weatherCurrent?.getOrNull(0)?.icon,
-                    id = input?.current?.weatherCurrent?.getOrNull(0)?.id,
-                    main = input?.current?.weatherCurrent?.getOrNull(0)?.main
+                weather = Weather(
+                    description = input?.current?.weather?.getOrNull(0)?.description,
+                    icon = input?.current?.weather?.getOrNull(0)?.icon,
+                    id = input?.current?.weather?.getOrNull(0)?.id,
+                    main = input?.current?.weather?.getOrNull(0)?.main
                 ),
                 wind_deg = input?.current?.wind_deg,
                 wind_gust = input?.current?.wind_gust,
