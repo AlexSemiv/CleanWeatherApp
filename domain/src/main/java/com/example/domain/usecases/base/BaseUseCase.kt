@@ -7,9 +7,9 @@ import java.lang.Exception
 
 abstract class BaseUseCase<DomainModel, Argument> {
 
-    abstract suspend fun buildRequest(argument: Argument): Flow<Resource<DomainModel>>
+    abstract suspend fun buildRequest(argument: Argument?): Flow<Resource<DomainModel>>
 
-    suspend fun execute(argument: Argument): Flow<Resource<DomainModel>> {
+    suspend fun execute(argument: Argument?): Flow<Resource<DomainModel>> {
         return try {
             buildRequest(argument)
         } catch (e: Exception) {

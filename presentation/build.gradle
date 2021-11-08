@@ -45,4 +45,6 @@ dependencies {
     implementation project(path: ':domain')
     implementation project(path: ':common')
 
+    def javaxInjectVersion = "1"
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
 }
