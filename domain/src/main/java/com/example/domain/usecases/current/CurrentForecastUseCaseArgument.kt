@@ -1,4 +1,4 @@
-package com.example.domain.usecases
+package com.example.domain.usecases.current
 
 data class CurrentForecastUseCaseArgument(
     var latitude: Double,

@@ -88,8 +88,6 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/mainFragmentIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
         style="@style/LottieStyle"
         app:layout_constraintBottom_toTopOf="@+id/mainFragmentTemp"
         app:layout_constraintStart_toStartOf="@+id/mainFragmentTemp"
@@ -100,10 +98,18 @@
         android:id="@+id/mainFragmentDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/mainFragmentTemp"
         app:layout_constraintStart_toEndOf="@+id/mainFragmentIcon"
-        tools:text="Cloudy" />
+        android:text="Cloudy" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/mainFragmentMoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/ic_more_info"
+        app:layout_constraintStart_toEndOf="@+id/mainFragmentDescription"
+        app:layout_constraintTop_toTopOf="@+id/mainFragmentDescription" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/mainFragmentTemp"
@@ -158,7 +164,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/mainFragmentAppBarLayout" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineChart"
@@ -167,13 +173,15 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.75" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
-        android:id="@+id/mainFragmentChartSwitch"
-        android:text="Daily/Hourly"
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/mainFragmentSpinnerChart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:entries="@array/charts"
         app:layout_constraintBottom_toTopOf="@+id/guidelineChart"
-        app:layout_constraintEnd_toEndOf="@+id/lineChart" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"

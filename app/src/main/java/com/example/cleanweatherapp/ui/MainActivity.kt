@@ -32,18 +32,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
 
     /**
-         * item recycler .xml +
-         *
-         * layout for click on chart +
-         *
-         * layout for header to recyclerView +
-         *
-         * preferences .xml +
-         *
-         * dialogFragmentLayout for mainFragment with more information +
-         *
-         * lottie style +
-         *
-         * ready app with navigation
+         * view pager for charts
      */
 }

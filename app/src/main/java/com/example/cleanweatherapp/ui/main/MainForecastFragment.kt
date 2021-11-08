@@ -32,7 +32,7 @@ class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
             }
         }
 
-        binding.mainFragmentTemp.setOnClickListener {
+        binding.mainFragmentMoreButton.setOnClickListener {
             findNavController().navigate(
                 R.id.action_mainForecastFragment_to_detailDialogFragment
             )

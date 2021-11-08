@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.common.other.Mapper
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.qualifiers.ViewModelKey
-import com.example.domain.usecases.CurrentForecastUseCaseArgument
+import com.example.domain.usecases.current.CurrentForecastUseCaseArgument
 import com.example.domain.usecases.base.BaseUseCase
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.presentation.viewmodels.CurrentForecastViewModel

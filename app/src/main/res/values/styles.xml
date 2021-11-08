@@ -13,6 +13,16 @@
         <item name="searchViewStyle">@style/SearchViewStyle</item>
         <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
         <item name="linearProgressIndicatorStyle">@style/LinearProgressIndicator</item>
+        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
+    </style>
+
+    <style name="SpinnerItemStyle" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ImageButtonStyle" parent="Widget.AppCompat.ImageButton">
+        <item name="android:background">@color/sea</item>
     </style>
 
     <style name="TextViewStyle" parent="android:Widget.TextView">
@@ -78,6 +88,8 @@
     </style>
 
     <style name="LottieStyle">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
         <item name="lottie_autoPlay">true</item>
         <item name="lottie_loop">true</item>
         <item name="lottie_rawRes">@raw/storm_showers_day</item>

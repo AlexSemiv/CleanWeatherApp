@@ -1,4 +1,4 @@
-package com.example.domain.usecases
+package com.example.domain.usecases.current
 
 import com.example.common.other.Resource
 import com.example.domain.models.current.CurrentForecastDomainModel
