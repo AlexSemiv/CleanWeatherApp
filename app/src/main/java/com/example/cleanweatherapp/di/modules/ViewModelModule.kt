@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.example.common.other.Mapper
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.qualifiers.ViewModelKey
-import com.example.domain.usecases.GetCurrentForecastUseCase
+import com.example.domain.usecases.CurrentForecastUseCaseArgument
+import com.example.domain.usecases.base.BaseUseCase
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.presentation.viewmodels.CurrentForecastViewModel
 import dagger.Module
@@ -18,7 +19,7 @@ class ViewModelModule {
     @ViewModelKey(value = CurrentForecastViewModel::class)
     @Provides
     fun provideCurrentForecastViewModel(
-        useCase: GetCurrentForecastUseCase,
+        useCase: BaseUseCase<CurrentForecastDomainModel, CurrentForecastUseCaseArgument>,
         mapper: Mapper<CurrentForecastDomainModel, CurrentForecastUiModel>
     ): ViewModel {
         return CurrentForecastViewModel(
