@@ -15,6 +15,7 @@ import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
 import com.example.cleanweatherapp.ui.MainActivity
+import com.example.common.other.ConvertFunctions
 import com.example.presentation.contracts.CurrentContract
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.presentation.viewmodels.CurrentForecastViewModel
@@ -74,12 +75,15 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                     when (val state = it.currentForecastState) {
                         is CurrentContract.CurrentForecastState.Idle -> {
                             binding.mainFragmentProgressIndicator.isVisible = false
+                            binding.mainFragmentPlaceHolder.isVisible = true
                         }
                         is CurrentContract.CurrentForecastState.Loading -> {
                             binding.mainFragmentProgressIndicator.isVisible = true
+                            binding.mainFragmentPlaceHolder.isVisible = false
                         }
                         is CurrentContract.CurrentForecastState.Success -> {
                             binding.mainFragmentProgressIndicator.isVisible = false
+                            binding.mainFragmentPlaceHolder.isVisible = true
                             val forecast = state.forecast
                             inflateData(forecast)
                             binding.mainFragmentMoreButton.setOnClickListener {
@@ -125,8 +129,32 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
     }
 
     private fun inflateData(forecast: CurrentForecastUiModel) {
-        Log.d("DEBUG_TAG", "inflateData()")
-        Log.d("DEBUG_TAG", forecast.toString())
+        with(binding) {
+            mainFragmentToolbar.title = ConvertFunctions.formattedTitle(forecast.timezone!!)
+            mainFragmentToolbar.subtitle = "last update ${ConvertFunctions.formattedTime(forecast.current?.dt ?: 0)}"
+            mainFragmentHumidity.text = "${forecast.current?.humidity}%"
+            mainFragmentPressure.text = "${forecast.current?.pressure}mBar"
+            mainFragmentWindSpeed.text = "${forecast.current?.wind_speed}m/sec"
+            mainFragmentIcon.setAnimation(when(forecast.current?.weatherCurrent?.icon) {
+                "01d" -> R.raw.clear_sky_day
+                "01n" -> R.raw.clear_sky_night
+                "02d", "03d", "04d" -> R.raw.cloudy_day
+                "02n", "03n", "04n" -> R.raw.cloudy_night
+                "09d", "10d" -> R.raw.rain_day
+                "09n", "10n" -> R.raw.rain_night
+                "11d", "11n" -> R.raw.thunder
+                "13d" -> R.raw.snow_day
+                "13n" -> R.raw.snow_night
+                "50d" -> R.raw.mist_day
+                "50n" -> R.raw.mist_night
+                else -> R.raw.clear_sky_day
+            })
+            mainFragmentDescription.text = ConvertFunctions.formattedDescription(forecast.current?.weatherCurrent?.description ?: "Description")
+            mainFragmentTemp.text = "${forecast.current?.temp?.toInt()}°"
+            mainFragmentSunset.text = ConvertFunctions.formattedTime(forecast.current?.sunset ?: 0)
+            mainFragmentSunrise.text = ConvertFunctions.formattedTime(forecast.current?.sunrise ?: 0)
+            // TODO: 09.11.2021 продолжить
+        }
     }
 }
 

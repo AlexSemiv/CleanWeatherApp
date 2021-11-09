@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import androidx.navigation.fragment.navArgs
 import com.example.common.base.BaseDialogFragment
 import com.example.cleanweatherapp.databinding.MainForecastDialogBinding
+import com.example.common.other.ConvertFunctions
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class DetailDialogFragment: BaseDialogFragment<MainForecastDialogBinding>(){
@@ -22,7 +23,7 @@ class DetailDialogFragment: BaseDialogFragment<MainForecastDialogBinding>(){
 
         val current = args.current
         binding.apply {
-            dialogFragmentDate.text = current?.dt.toString()
+            dialogFragmentDate.text = ConvertFunctions.formattedCurrentDate(current?.dt ?: 0)
             dialogFragmentVisibility.text = "${current?.visibility}m"
             dialogFragmentClouds.text = "${current?.clouds}%"
             dialogFragmentDevPoint.text = "${current?.dew_point}"
