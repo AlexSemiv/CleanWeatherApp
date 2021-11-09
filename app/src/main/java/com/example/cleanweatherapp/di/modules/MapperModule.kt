@@ -5,6 +5,8 @@ import com.example.data.mappers.CurrentForecastDataDomainMapper
 import com.example.data.models.current.CurrentForecastDataModel
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.qualifiers.ActivityScope
+import com.example.local.mapper.CurrentForecastLocalDataMapper
+import com.example.local.model.current.CurrentForecastLocalModel
 import com.example.presentation.mappers.CurrentForecastDomainUiMapper
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.remote.mappers.CurrentForecastNetworkDataMapper
@@ -32,4 +34,10 @@ abstract class MapperModule {
     abstract fun bindsCurrentForecastDomainUiMapper(
         mapper: CurrentForecastDomainUiMapper
     ): Mapper<CurrentForecastDomainModel, CurrentForecastUiModel>
+
+    @ActivityScope
+    @Binds
+    abstract fun bindsCurrentForecastLocalDataMapper(
+        mapper: CurrentForecastLocalDataMapper
+    ): Mapper<CurrentForecastLocalModel, CurrentForecastDataModel>
 }

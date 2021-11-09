@@ -12,7 +12,7 @@ import dagger.Component
 @Component(
     modules = [
         NetworkModule::class,
-        // LocalDataModule (for shared pref)
+        LocalModule::class
     ]
 )
 interface ApplicationComponent {

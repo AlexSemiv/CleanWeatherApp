@@ -24,7 +24,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
+class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -50,7 +50,7 @@ class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
         viewModel = ViewModelProvider(this, factory)[CurrentForecastViewModel::class.java]
 
         binding.mainFragmentToolbar.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId) {
+            when (menuItem.itemId) {
                 R.id.mainMenuSettings -> {
                     findNavController().navigate(
                         R.id.globalActionToSettingsFragment
@@ -63,8 +63,8 @@ class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
 
         subscribeObservers()
 
-        if(viewModel?.currentState?.currentForecastState is CurrentContract.CurrentForecastState.Idle)
-            viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecast(50.0, 50.0, "metric"))
+        if (viewModel?.currentState?.currentForecastState is CurrentContract.CurrentForecastState.Idle)
+            viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecast)
     }
 
     private fun subscribeObservers() {
@@ -76,11 +76,19 @@ class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
                             binding.mainFragmentProgressIndicator.isVisible = false
                         }
                         is CurrentContract.CurrentForecastState.Loading -> {
-                            binding.mainFragmentProgressIndicator.isVisible = false
+                            binding.mainFragmentProgressIndicator.isVisible = true
                         }
                         is CurrentContract.CurrentForecastState.Success -> {
+                            binding.mainFragmentProgressIndicator.isVisible = false
                             val forecast = state.forecast
                             inflateData(forecast)
+                            binding.mainFragmentMoreButton.setOnClickListener {
+                                viewModel?.setEffect(
+                                    CurrentContract.Effect.ShowMoreInfoDialog(
+                                        forecast = forecast
+                                    )
+                                )
+                            }
                         }
                     }
                 }
@@ -92,20 +100,22 @@ class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
                 viewModel?.effect?.collect {
                     when (it) {
                         is CurrentContract.Effect.ShowError -> {
-                            Snackbar.make(requireView(), it.message ?: "Unknown error", Snackbar.LENGTH_LONG)
-                                .setAction("OK") {
-                                    // TODO: 09.11.2021
-                                }
-                                .show()
+                            binding.mainFragmentMoreButton.setOnClickListener(null)
+                            val errorView = Snackbar.make(
+                                requireView(),
+                                it.message ?: "Unknown error",
+                                Snackbar.LENGTH_LONG
+                            )
+                            errorView.setAction("OK") {
+                                errorView.dismiss()
+                            }.show()
                         }
                         is CurrentContract.Effect.ShowMoreInfoDialog -> {
-                            // Delete this listener in some place
                             val forecast = it.forecast
                             findNavController().navigate(
-                                R.id.action_mainForecastFragment_to_detailDialogFragment,
-                                Bundle().apply {
-                                    putSerializable("forecast", forecast)
-                                }
+                                MainForecastFragmentDirections.actionMainForecastFragmentToDetailDialogFragment(
+                                    current = forecast.current
+                                )
                             )
                         }
                     }

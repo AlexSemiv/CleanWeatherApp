@@ -20,8 +20,7 @@ class GetCurrentForecastUseCase @Inject constructor(
             argument?.let { arg ->
                 return repository.getCurrentForecast(
                     latitude = arg.latitude,
-                    longitude = arg.longitude,
-                    units = arg.units
+                    longitude = arg.longitude
                 ).flowOn(Dispatchers.IO)
             }
             return flow {

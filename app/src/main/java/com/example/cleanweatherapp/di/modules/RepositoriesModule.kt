@@ -1,9 +1,11 @@
 package com.example.cleanweatherapp.di.modules
 
+import com.example.data.repositories.LocalDataSource
 import com.example.data.repositories.RemoteDataSource
 import com.example.data.repositories.RepositoryImpl
 import com.example.domain.qualifiers.ActivityScope
 import com.example.domain.repository.Repository
+import com.example.local.source.LocalDataSourceImp
 import com.example.remote.sources.RemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
@@ -16,6 +18,12 @@ abstract class RepositoriesModule {
     abstract fun bindsRemoteDataSource(
         remoteDataSource: RemoteDataSourceImpl
     ): RemoteDataSource
+
+    @ActivityScope
+    @Binds
+    abstract fun bindsLocalDataSource(
+        localDataSource: LocalDataSourceImp
+    ): LocalDataSource
 
     @ActivityScope
     @Binds

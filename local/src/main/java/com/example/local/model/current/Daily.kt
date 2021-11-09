@@ -1,8 +1,8 @@
-package com.example.presentation.models.current
+package com.example.local.model.current
 
 import java.io.Serializable
 
-data class Hourly(
+data class Daily(
     val dt: Int?,
     val feels_like: Double?,
     val temp: Double?

@@ -12,25 +12,33 @@ import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
+    private val localDataSource: LocalDataSource,
     private val mapper: Mapper<CurrentForecastDataModel, CurrentForecastDomainModel>
 ): Repository {
 
     override suspend fun getCurrentForecast(
         latitude: Double,
-        longitude: Double,
-        units: String
+        longitude: Double
     ): Flow<Resource<CurrentForecastDomainModel>> {
         return flow {
             try {
                 val currentDataForecast = remoteDataSource.getCurrentForecast(
                     latitude = latitude,
                     longitude = longitude,
-                    units = units
+                    units = localDataSource.getUnits()
                 )
+
+                localDataSource.saveCurrentForecastData(currentDataForecast)
+
                 val currentDomainForecast = mapper.from(currentDataForecast)
                 emit(Resource.Success(data = currentDomainForecast))
-            } catch (e: Exception) {
-                emit(Resource.Error(message = e.message ?: ":("))
+            } catch (e1: Exception) {
+                try {
+                    val localDataForecast = localDataSource.getLastSavedCurrentForecastData()
+                    emit(Resource.Success(data = mapper.from(localDataForecast)))
+                } catch (e2: Exception) {
+                    emit(Resource.Error(message = e2.message ?: ":("))
+                }
             }
         }
     }

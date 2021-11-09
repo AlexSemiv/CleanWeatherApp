@@ -8,11 +8,7 @@ import com.example.presentation.models.current.CurrentForecastUiModel
 class CurrentContract {
 
     sealed class Event : UiEvent {
-        data class OnFetchCurrentForecast(
-            val latitude: Double,
-            val longitude: Double,
-            val units: String
-        ) : Event()
+        object OnFetchCurrentForecast : Event()
 
         data class OnSpinnerItemClicked(
             val position: Int

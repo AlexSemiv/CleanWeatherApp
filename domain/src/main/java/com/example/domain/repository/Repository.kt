@@ -8,7 +8,6 @@ interface Repository {
 
     suspend fun getCurrentForecast(
         latitude: Double,
-        longitude: Double,
-        units: String
+        longitude: Double
     ): Flow<Resource<CurrentForecastDomainModel>>
 }

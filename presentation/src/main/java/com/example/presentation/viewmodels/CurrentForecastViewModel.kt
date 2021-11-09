@@ -29,11 +29,7 @@ class CurrentForecastViewModel @Inject constructor(
     override fun handleEvent(event: CurrentContract.Event) {
         when (event) {
             is CurrentContract.Event.OnFetchCurrentForecast -> {
-                fetchCurrentForecast(
-                    latitude = event.latitude,
-                    longitude = event.longitude,
-                    units = event.units
-                )
+                fetchCurrentForecast()
             }
             is CurrentContract.Event.OnSpinnerItemClicked -> {
                 val position = event.position
@@ -42,17 +38,14 @@ class CurrentForecastViewModel @Inject constructor(
         }
     }
 
-    private fun fetchCurrentForecast(
-        latitude: Double,
-        longitude: Double,
-        units: String
-    ) {
+    private fun fetchCurrentForecast() {
+        // get coord
+
         viewModelScope.launch {
             currentForecastUseCase.execute(
                 CurrentForecastUseCaseArgument(
-                    latitude = latitude,
-                    longitude = longitude,
-                    units = units
+                    latitude = 50.9,
+                    longitude = 55.1
                 )
             ).onStart { emit(Resource.Loading()) }
                 .collect {

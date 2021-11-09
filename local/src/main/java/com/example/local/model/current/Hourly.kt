@@ -1,4 +1,4 @@
-package com.example.presentation.models.current
+package com.example.local.model.current
 
 import java.io.Serializable
 

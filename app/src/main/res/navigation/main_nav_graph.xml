@@ -25,8 +25,8 @@
         android:label="DetailDialogFragment"
         tools:layout="@layout/main_forecast_dialog" >
         <argument
-            android:name="forecast"
-            app:argType="com.example.presentation.models.current.CurrentForecastUiModel"
+            android:name="current"
+            app:argType="com.example.presentation.models.current.Current"
             app:nullable="true" />
     </dialog>
 
