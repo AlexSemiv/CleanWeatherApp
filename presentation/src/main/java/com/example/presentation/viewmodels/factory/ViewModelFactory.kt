@@ -2,11 +2,14 @@ package com.example.presentation.viewmodels.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.domain.qualifiers.ActivityScope
+import com.example.domain.qualifiers.ApplicationScope
 import javax.inject.Inject
 import javax.inject.Provider
 
+@ActivityScope
 class ViewModelFactory @Inject constructor(
-    val viewModelProviders: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
+    private val viewModelProviders: @JvmSuppressWildcards Map<Class<out ViewModel>, Provider<ViewModel>>
 ): ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

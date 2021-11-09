@@ -1,13 +1,35 @@
 package com.example.cleanweatherapp.ui.main
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.example.cleanweatherapp.BaseApplication
 import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
+import com.example.cleanweatherapp.ui.MainActivity
+import com.example.presentation.contracts.CurrentContract
+import com.example.presentation.models.current.CurrentForecastUiModel
+import com.example.presentation.viewmodels.CurrentForecastViewModel
+import com.example.presentation.viewmodels.factory.ViewModelFactory
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private var viewModel: CurrentForecastViewModel? = null
 
     override fun bindLayout(
         inflater: LayoutInflater,
@@ -17,8 +39,15 @@ class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
         return MainForecastFragmentBinding.inflate(inflater, viewGroup, attachToRoot)
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).activitySubComponent?.injectCurrentForecastFragment(this)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProvider(this, factory)[CurrentForecastViewModel::class.java]
 
         binding.mainFragmentToolbar.setOnMenuItemClickListener { menuItem ->
             when(menuItem.itemId) {
@@ -32,11 +61,62 @@ class MainForecastFragment: BaseFragment<MainForecastFragmentBinding>() {
             }
         }
 
-        binding.mainFragmentMoreButton.setOnClickListener {
-            findNavController().navigate(
-                R.id.action_mainForecastFragment_to_detailDialogFragment
-            )
+        subscribeObservers()
+
+        if(viewModel?.currentState?.currentForecastState is CurrentContract.CurrentForecastState.Idle)
+            viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecast(50.0, 50.0, "metric"))
+    }
+
+    private fun subscribeObservers() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.uiState?.collect {
+                    when (val state = it.currentForecastState) {
+                        is CurrentContract.CurrentForecastState.Idle -> {
+                            binding.mainFragmentProgressIndicator.isVisible = false
+                        }
+                        is CurrentContract.CurrentForecastState.Loading -> {
+                            binding.mainFragmentProgressIndicator.isVisible = false
+                        }
+                        is CurrentContract.CurrentForecastState.Success -> {
+                            val forecast = state.forecast
+                            inflateData(forecast)
+                        }
+                    }
+                }
+            }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel?.effect?.collect {
+                    when (it) {
+                        is CurrentContract.Effect.ShowError -> {
+                            Snackbar.make(requireView(), it.message ?: "Unknown error", Snackbar.LENGTH_LONG)
+                                .setAction("OK") {
+                                    // TODO: 09.11.2021
+                                }
+                                .show()
+                        }
+                        is CurrentContract.Effect.ShowMoreInfoDialog -> {
+                            // Delete this listener in some place
+                            val forecast = it.forecast
+                            findNavController().navigate(
+                                R.id.action_mainForecastFragment_to_detailDialogFragment,
+                                Bundle().apply {
+                                    putSerializable("forecast", forecast)
+                                }
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun inflateData(forecast: CurrentForecastUiModel) {
+        Log.d("DEBUG_TAG", "inflateData()")
+        Log.d("DEBUG_TAG", forecast.toString())
     }
 }
 

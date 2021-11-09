@@ -5,7 +5,8 @@ import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.presentation.models.current.*
 import javax.inject.Inject
 
-class CurrentForecastDomainUiMapper @Inject constructor(): Mapper<CurrentForecastDomainModel, CurrentForecastUiModel> {
+class CurrentForecastDomainUiMapper @Inject constructor() :
+    Mapper<CurrentForecastDomainModel, CurrentForecastUiModel> {
     override fun from(input: CurrentForecastDomainModel?): CurrentForecastUiModel {
         return CurrentForecastUiModel(
             current = Current(

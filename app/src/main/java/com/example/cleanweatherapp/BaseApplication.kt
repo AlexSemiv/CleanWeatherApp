@@ -6,5 +6,7 @@ import com.example.cleanweatherapp.di.components.DaggerApplicationComponent
 
 class BaseApplication: Application() {
 
-    val applicationComponent: ApplicationComponent = DaggerApplicationComponent.create()
+    val applicationComponent: ApplicationComponent = DaggerApplicationComponent.builder()
+        .setApplication(this)
+        .build()
 }

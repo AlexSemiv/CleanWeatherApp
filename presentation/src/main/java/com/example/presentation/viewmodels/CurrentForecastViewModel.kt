@@ -4,8 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.common.base.BaseViewModel
 import com.example.common.other.Mapper
 import com.example.common.other.Resource
-import com.example.common.other.UseCase
 import com.example.domain.models.current.CurrentForecastDomainModel
+import com.example.domain.usecases.base.BaseUseCase
 import com.example.domain.usecases.current.CurrentForecastUseCaseArgument
 import com.example.presentation.contracts.CurrentContract
 import com.example.presentation.models.current.CurrentForecastUiModel
@@ -15,9 +15,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CurrentForecastViewModel @Inject constructor(
-    private val currentForecastUseCase: UseCase<CurrentForecastDomainModel, CurrentForecastUseCaseArgument>,
+    private val currentForecastUseCase: BaseUseCase<CurrentForecastDomainModel, CurrentForecastUseCaseArgument>,
     private val mapper: Mapper<CurrentForecastDomainModel, CurrentForecastUiModel>
-): BaseViewModel<CurrentContract.Event, CurrentContract.State, CurrentContract.Effect>() {
+) : BaseViewModel<CurrentContract.Event, CurrentContract.State, CurrentContract.Effect>() {
 
     override fun createInitialUiState(): CurrentContract.State {
         return CurrentContract.State(
@@ -27,7 +27,7 @@ class CurrentForecastViewModel @Inject constructor(
     }
 
     override fun handleEvent(event: CurrentContract.Event) {
-        when(event) {
+        when (event) {
             is CurrentContract.Event.OnFetchCurrentForecast -> {
                 fetchCurrentForecast(
                     latitude = event.latitude,
@@ -37,7 +37,7 @@ class CurrentForecastViewModel @Inject constructor(
             }
             is CurrentContract.Event.OnSpinnerItemClicked -> {
                 val position = event.position
-                // TODO: 08.11.2021
+                setSelectedSpinnerChartItem(position)
             }
         }
     }
@@ -56,10 +56,32 @@ class CurrentForecastViewModel @Inject constructor(
                 )
             ).onStart { emit(Resource.Loading()) }
                 .collect {
-                    when(it) {
-                        // TODO: 08.11.2021
+                    when (it) {
+                        is Resource.Loading -> {
+                            setState { copy(currentForecastState = CurrentContract.CurrentForecastState.Loading) }
+                        }
+                        is Resource.Empty -> {
+                            setState { copy(currentForecastState = CurrentContract.CurrentForecastState.Idle) }
+                        }
+                        is Resource.Success -> {
+                            val data = mapper.from(it.data)
+                            setState {
+                                copy(
+                                    currentForecastState = CurrentContract.CurrentForecastState.Success(
+                                        forecast = data
+                                    )
+                                )
+                            }
+                        }
+                        is Resource.Error -> {
+                            setEffect(CurrentContract.Effect.ShowError(message = it.message))
+                        }
                     }
                 }
         }
+    }
+
+    private fun setSelectedSpinnerChartItem(position: Int) {
+        setState { copy(selectedSpinnerChartItem = position) }
     }
 }
