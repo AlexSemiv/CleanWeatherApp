@@ -8,7 +8,7 @@ import com.example.presentation.models.current.CurrentForecastUiModel
 class CurrentContract {
 
     sealed class Event : UiEvent {
-        object OnFetchCurrentForecast : Event()
+        object OnFetchCurrentForecastNetwork : Event()
 
         data class OnSpinnerItemClicked(
             val position: Int
@@ -22,7 +22,7 @@ class CurrentContract {
 
     sealed class CurrentForecastState {
         object Idle : CurrentForecastState()
-        object Loading : CurrentForecastState()
+        data class Loading(val cashedForecast: CurrentForecastUiModel?) : CurrentForecastState()
         data class Success(val forecast: CurrentForecastUiModel) : CurrentForecastState()
     }
 

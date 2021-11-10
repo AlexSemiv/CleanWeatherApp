@@ -16,12 +16,15 @@ class RepositoryImpl @Inject constructor(
     private val mapper: Mapper<CurrentForecastDataModel, CurrentForecastDomainModel>
 ): Repository {
 
-    override suspend fun getCurrentForecast(
+    override suspend fun getCurrentForecastNetwork(
         latitude: Double,
         longitude: Double
     ): Flow<Resource<CurrentForecastDomainModel>> {
         return flow {
             try {
+                val localDataForecast = localDataSource.getLastSavedCurrentForecastData()
+                emit(Resource.Loading(data = mapper.from(localDataForecast)))
+
                 val currentDataForecast = remoteDataSource.getCurrentForecast(
                     latitude = latitude,
                     longitude = longitude,

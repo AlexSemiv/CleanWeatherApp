@@ -1,6 +1,7 @@
 package com.example.cleanweatherapp.ui.main
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -10,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.example.cleanweatherapp.BaseApplication
 import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
@@ -18,8 +18,10 @@ import com.example.cleanweatherapp.ui.MainActivity
 import com.example.common.other.ConvertFunctions
 import com.example.presentation.contracts.CurrentContract
 import com.example.presentation.models.current.CurrentForecastUiModel
+import com.example.presentation.models.current.Daily
 import com.example.presentation.viewmodels.CurrentForecastViewModel
 import com.example.presentation.viewmodels.factory.ViewModelFactory
+import com.github.mikephil.charting.data.Entry
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -29,6 +31,9 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
 
     @Inject
     lateinit var factory: ViewModelFactory
+
+    @Inject
+    lateinit var preferences: SharedPreferences
 
     private var viewModel: CurrentForecastViewModel? = null
 
@@ -50,7 +55,7 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
 
         viewModel = ViewModelProvider(this, factory)[CurrentForecastViewModel::class.java]
 
-        binding.mainFragmentToolbar.setOnMenuItemClickListener { menuItem ->
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.mainMenuSettings -> {
                     findNavController().navigate(
@@ -62,10 +67,17 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
             }
         }
 
+        binding.srlRefresh.apply {
+            setOnRefreshListener {
+                viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecastNetwork)
+                isRefreshing = false
+            }
+        }
+
         subscribeObservers()
 
         if (viewModel?.currentState?.currentForecastState is CurrentContract.CurrentForecastState.Idle)
-            viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecast)
+            viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecastNetwork)
     }
 
     private fun subscribeObservers() {
@@ -75,24 +87,16 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                     when (val state = it.currentForecastState) {
                         is CurrentContract.CurrentForecastState.Idle -> {
                             binding.mainFragmentProgressIndicator.isVisible = false
-                            binding.mainFragmentPlaceHolder.isVisible = true
                         }
                         is CurrentContract.CurrentForecastState.Loading -> {
                             binding.mainFragmentProgressIndicator.isVisible = true
-                            binding.mainFragmentPlaceHolder.isVisible = false
+                            val cashedForecast = state.cashedForecast
+                            inflateData(cashedForecast)
                         }
                         is CurrentContract.CurrentForecastState.Success -> {
-                            binding.mainFragmentProgressIndicator.isVisible = false
-                            binding.mainFragmentPlaceHolder.isVisible = true
                             val forecast = state.forecast
                             inflateData(forecast)
-                            binding.mainFragmentMoreButton.setOnClickListener {
-                                viewModel?.setEffect(
-                                    CurrentContract.Effect.ShowMoreInfoDialog(
-                                        forecast = forecast
-                                    )
-                                )
-                            }
+                            binding.mainFragmentProgressIndicator.isVisible = false
                         }
                     }
                 }
@@ -104,7 +108,7 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                 viewModel?.effect?.collect {
                     when (it) {
                         is CurrentContract.Effect.ShowError -> {
-                            binding.mainFragmentMoreButton.setOnClickListener(null)
+                            binding.btnShowInfoDialog.setOnClickListener(null)
                             val errorView = Snackbar.make(
                                 requireView(),
                                 it.message ?: "Unknown error",
@@ -128,14 +132,24 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
         }
     }
 
-    private fun inflateData(forecast: CurrentForecastUiModel) {
+    private fun inflateData(forecast: CurrentForecastUiModel?) {
+        if(forecast == null)
+            return
+
         with(binding) {
-            mainFragmentToolbar.title = ConvertFunctions.formattedTitle(forecast.timezone!!)
-            mainFragmentToolbar.subtitle = "last update ${ConvertFunctions.formattedTime(forecast.current?.dt ?: 0)}"
-            mainFragmentHumidity.text = "${forecast.current?.humidity}%"
-            mainFragmentPressure.text = "${forecast.current?.pressure}mBar"
-            mainFragmentWindSpeed.text = "${forecast.current?.wind_speed}m/sec"
-            mainFragmentIcon.setAnimation(when(forecast.current?.weatherCurrent?.icon) {
+            btnShowInfoDialog.setOnClickListener {
+                viewModel?.setEffect(
+                    CurrentContract.Effect.ShowMoreInfoDialog(
+                        forecast = forecast
+                    )
+                )
+            }
+            toolbar.title = ConvertFunctions.formattedTitle(forecast.timezone!!)
+            toolbar.subtitle = "last update ${ConvertFunctions.formattedTime(forecast.current?.dt ?: 0)}"
+            tvHumidity.text = "${forecast.current?.humidity}%"
+            tvPressure.text = "${forecast.current?.pressure}mBar"
+            tvWindSpeed.text = "${forecast.current?.wind_speed}m/sec"
+            lottieIcon.setAnimation(when(forecast.current?.weatherCurrent?.icon) {
                 "01d" -> R.raw.clear_sky_day
                 "01n" -> R.raw.clear_sky_night
                 "02d", "03d", "04d" -> R.raw.cloudy_day
@@ -149,11 +163,18 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                 "50n" -> R.raw.mist_night
                 else -> R.raw.clear_sky_day
             })
-            mainFragmentDescription.text = ConvertFunctions.formattedDescription(forecast.current?.weatherCurrent?.description ?: "Description")
-            mainFragmentTemp.text = "${forecast.current?.temp?.toInt()}°"
-            mainFragmentSunset.text = ConvertFunctions.formattedTime(forecast.current?.sunset ?: 0)
-            mainFragmentSunrise.text = ConvertFunctions.formattedTime(forecast.current?.sunrise ?: 0)
-            // TODO: 09.11.2021 продолжить
+            tvDescription.text = ConvertFunctions.formattedDescription(forecast.current?.weatherCurrent?.description ?: "Description")
+            tvTemp.text = "${forecast.current?.temp?.toInt()}°"
+            tvSunset.text = ConvertFunctions.formattedTime(forecast.current?.sunset ?: 0)
+            tvSunrise.text = ConvertFunctions.formattedTime(forecast.current?.sunrise ?: 0)
+
+            // TODO: 09.11.2021 сделать график как в фитнес треккере
+            /*val lineEntry = forecast.daily?.dailyToEntry()
+            val lineDataSet = LineDataSet(lineEntry, "First")
+            lineDataSet.color = resources.getColor(R.color.black)
+            val data = LineData(lineDataSet)
+            lineChart.data = data
+            lineChart.background = null*/
         }
     }
 }

@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.flowOn
 import java.lang.Exception
 import javax.inject.Inject
 
-class GetCurrentForecastUseCase @Inject constructor(
+class GetCurrentForecastNetworkUseCase @Inject constructor(
     private val repository: Repository
-): UseCase<CurrentForecastDomainModel, CurrentForecastUseCaseArgument> {
+): UseCase<CurrentForecastDomainModel, CurrentForecastNetworkUseCaseArgument> {
 
-    override suspend fun execute(argument: CurrentForecastUseCaseArgument?): Flow<Resource<CurrentForecastDomainModel>> {
-        return try {
-            argument?.let { arg ->
-                return repository.getCurrentForecast(
+    override suspend fun execute(argumentNetwork: CurrentForecastNetworkUseCaseArgument?): Flow<Resource<CurrentForecastDomainModel>> {
+        try {
+            argumentNetwork?.let { arg ->
+                return repository.getCurrentForecastNetwork(
                     latitude = arg.latitude,
                     longitude = arg.longitude
                 ).flowOn(Dispatchers.IO)
@@ -27,8 +27,7 @@ class GetCurrentForecastUseCase @Inject constructor(
                 emit(Resource.Error(message = "Argument in useCase is null"))
             }
         } catch (e: Exception) {
-            // check Resource.Empty behavior
-            flow { Resource.Empty }
+            return flow { Resource.Empty }
         }
     }
 }

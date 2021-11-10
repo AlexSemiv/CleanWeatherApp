@@ -6,63 +6,63 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentDate"
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="12.02.2001" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentTempAndFeelsLike"
+        android:id="@+id/tv_temp_and_feels_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="12° (feels like 10°)" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentDevPoint"
+        android:id="@+id/tv_dev_point"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="Dev point: 7°" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentUvi"
+        android:id="@+id/tv_uvi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="Uvi: 0.99" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentClouds"
+        android:id="@+id/tv_clouds"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="Clouds: 100" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentVisibility"
+        android:id="@+id/tv_visibility"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="Visibility: 10000" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentWindSpeed"
+        android:id="@+id/tv_wind_speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="Wind speed: 5.95" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentWindDeg"
+        android:id="@+id/tv_wind_deg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         tools:text="Wind deg: 206" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/dialogFragmentWindGust"
+        android:id="@+id/tv_wind_gust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

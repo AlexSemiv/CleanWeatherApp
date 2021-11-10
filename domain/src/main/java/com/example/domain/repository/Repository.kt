@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
 
-    suspend fun getCurrentForecast(
+    suspend fun getCurrentForecastNetwork(
         latitude: Double,
         longitude: Double
     ): Flow<Resource<CurrentForecastDomainModel>>

@@ -6,7 +6,7 @@ import com.example.common.other.Mapper
 import com.example.common.other.Resource
 import com.example.common.other.UseCase
 import com.example.domain.models.current.CurrentForecastDomainModel
-import com.example.domain.usecases.current.CurrentForecastUseCaseArgument
+import com.example.domain.usecases.current.CurrentForecastNetworkUseCaseArgument
 import com.example.presentation.contracts.CurrentContract
 import com.example.presentation.models.current.CurrentForecastUiModel
 import kotlinx.coroutines.flow.collect
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CurrentForecastViewModel @Inject constructor(
-    private val currentForecastUseCase: UseCase<CurrentForecastDomainModel, CurrentForecastUseCaseArgument>,
+    private val currentForecastNetworkUseCase: UseCase<CurrentForecastDomainModel, CurrentForecastNetworkUseCaseArgument>,
     private val mapper: Mapper<CurrentForecastDomainModel, CurrentForecastUiModel>
 ) : BaseViewModel<CurrentContract.Event, CurrentContract.State, CurrentContract.Effect>() {
 
@@ -28,8 +28,8 @@ class CurrentForecastViewModel @Inject constructor(
 
     override fun handleEvent(event: CurrentContract.Event) {
         when (event) {
-            is CurrentContract.Event.OnFetchCurrentForecast -> {
-                fetchCurrentForecast()
+            is CurrentContract.Event.OnFetchCurrentForecastNetwork -> {
+                fetchCurrentForecastNetwork()
             }
             is CurrentContract.Event.OnSpinnerItemClicked -> {
                 val position = event.position
@@ -38,43 +38,52 @@ class CurrentForecastViewModel @Inject constructor(
         }
     }
 
-    private fun fetchCurrentForecast() {
-        // get coord
-
+    private fun fetchCurrentForecastNetwork() {
+        // TODO: 10.11.2021 coordinates
         viewModelScope.launch {
-            currentForecastUseCase.execute(
-                CurrentForecastUseCaseArgument(
+            currentForecastNetworkUseCase.execute(
+                argument = CurrentForecastNetworkUseCaseArgument(
                     latitude = 50.9,
                     longitude = 55.1
                 )
-            ).onStart { emit(Resource.Loading()) }
-                .collect {
-                    when (it) {
-                        is Resource.Loading -> {
-                            setState { copy(currentForecastState = CurrentContract.CurrentForecastState.Loading) }
-                        }
-                        is Resource.Empty -> {
-                            setState { copy(currentForecastState = CurrentContract.CurrentForecastState.Idle) }
-                        }
-                        is Resource.Success -> {
-                            val data = mapper.from(it.data)
-                            setState {
-                                copy(
-                                    currentForecastState = CurrentContract.CurrentForecastState.Success(
-                                        forecast = data
-                                    )
-                                )
-                            }
-                        }
-                        is Resource.Error -> {
-                            setEffect(CurrentContract.Effect.ShowError(message = it.message))
-                        }
-                    }
-                }
+            ).collect {
+                handleEvents(it)
+            }
         }
     }
 
     private fun setSelectedSpinnerChartItem(position: Int) {
         setState { copy(selectedSpinnerChartItem = position) }
+    }
+
+    private fun handleEvents(resource: Resource<CurrentForecastDomainModel>) {
+        when (resource) {
+            is Resource.Loading -> {
+                val data = mapper.from(resource.data)
+                setState {
+                    copy(
+                        currentForecastState = CurrentContract.CurrentForecastState.Loading(
+                            cashedForecast = data
+                        )
+                    )
+                }
+            }
+            is Resource.Empty -> {
+                setState { copy(currentForecastState = CurrentContract.CurrentForecastState.Idle) }
+            }
+            is Resource.Success -> {
+                val data = mapper.from(resource.data)
+                setState {
+                    copy(
+                        currentForecastState = CurrentContract.CurrentForecastState.Success(
+                            forecast = data
+                        )
+                    )
+                }
+            }
+            is Resource.Error -> {
+                setEffect(CurrentContract.Effect.ShowError(message = resource.message))
+            }
+        }
     }
 }

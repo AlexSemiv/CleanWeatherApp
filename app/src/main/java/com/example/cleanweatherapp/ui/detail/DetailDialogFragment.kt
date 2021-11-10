@@ -2,7 +2,6 @@ package com.example.cleanweatherapp.ui.detail
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.navigation.fragment.navArgs
 import com.example.common.base.BaseDialogFragment
@@ -23,15 +22,15 @@ class DetailDialogFragment: BaseDialogFragment<MainForecastDialogBinding>(){
 
         val current = args.current
         binding.apply {
-            dialogFragmentDate.text = ConvertFunctions.formattedCurrentDate(current?.dt ?: 0)
-            dialogFragmentVisibility.text = "${current?.visibility}m"
-            dialogFragmentClouds.text = "${current?.clouds}%"
-            dialogFragmentDevPoint.text = "${current?.dew_point}"
-            dialogFragmentTempAndFeelsLike.text = "${current?.temp} (${current?.feels_like})"
-            dialogFragmentWindDeg.text = "${current?.wind_deg}"
-            dialogFragmentWindGust.text = "${current?.wind_gust}"
-            dialogFragmentWindSpeed.text = "${current?.wind_speed}"
-            dialogFragmentUvi.text = "${current?.uvi}"
+            tvDate.text = ConvertFunctions.formattedCurrentDate(current?.dt ?: 0)
+            tvVisibility.text = "${current?.visibility}m"
+            tvClouds.text = "${current?.clouds}%"
+            tvDevPoint.text = "${current?.dew_point}"
+            tvTempAndFeelsLike.text = "${current?.temp} (${current?.feels_like})"
+            tvWindDeg.text = "${current?.wind_deg}"
+            tvWindGust.text = "${current?.wind_gust}"
+            tvWindSpeed.text = "${current?.wind_speed}"
+            tvUvi.text = "${current?.uvi}"
         }
 
         return MaterialAlertDialogBuilder(requireContext())

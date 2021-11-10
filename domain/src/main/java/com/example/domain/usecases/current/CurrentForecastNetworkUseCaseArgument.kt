@@ -1,6 +1,6 @@
 package com.example.domain.usecases.current
 
-data class CurrentForecastUseCaseArgument(
+data class CurrentForecastNetworkUseCaseArgument(
     val latitude: Double,
     val longitude: Double
 )
