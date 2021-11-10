@@ -10,7 +10,6 @@ import com.example.domain.usecases.current.CurrentForecastNetworkUseCaseArgument
 import com.example.presentation.contracts.CurrentContract
 import com.example.presentation.models.current.CurrentForecastUiModel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,7 +21,6 @@ class CurrentForecastViewModel @Inject constructor(
     override fun createInitialUiState(): CurrentContract.State {
         return CurrentContract.State(
             currentForecastState = CurrentContract.CurrentForecastState.Idle,
-            selectedSpinnerChartItem = 0
         )
     }
 
@@ -30,10 +28,6 @@ class CurrentForecastViewModel @Inject constructor(
         when (event) {
             is CurrentContract.Event.OnFetchCurrentForecastNetwork -> {
                 fetchCurrentForecastNetwork()
-            }
-            is CurrentContract.Event.OnSpinnerItemClicked -> {
-                val position = event.position
-                setSelectedSpinnerChartItem(position)
             }
         }
     }
@@ -50,10 +44,6 @@ class CurrentForecastViewModel @Inject constructor(
                 handleEvents(it)
             }
         }
-    }
-
-    private fun setSelectedSpinnerChartItem(position: Int) {
-        setState { copy(selectedSpinnerChartItem = position) }
     }
 
     private fun handleEvents(resource: Resource<CurrentForecastDomainModel>) {

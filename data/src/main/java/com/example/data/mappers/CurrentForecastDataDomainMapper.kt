@@ -32,16 +32,27 @@ class CurrentForecastDataDomainMapper @Inject constructor(): Mapper<CurrentForec
             ),
             daily = input?.daily?.map { dataDaily ->
                 Daily(
+                    clouds = dataDaily.clouds,
+                    dew_point = dataDaily.dew_point,
                     dt = dataDaily.dt,
                     feels_like = dataDaily.feels_like,
                     temp = dataDaily.temp,
-                )
-            },
-            hourly = input?.daily?.map { dataHourly ->
-                Hourly(
-                    dt = dataHourly.dt,
-                    feels_like = dataHourly.feels_like,
-                    temp = dataHourly.temp
+                    humidity = dataDaily.humidity,
+                    pressure = dataDaily.pressure,
+                    rain = dataDaily.rain,
+                    snow = dataDaily.snow,
+                    sunrise = dataDaily.sunrise,
+                    sunset = dataDaily.sunset,
+                    uvi = dataDaily.uvi,
+                    weather = Weather(
+                        description = dataDaily.weather?.description,
+                        id = dataDaily.weather?.id,
+                        main = dataDaily.weather?.main,
+                        icon = dataDaily.weather?.icon
+                    ),
+                    wind_speed = dataDaily.wind_speed,
+                    wind_deg = dataDaily.wind_deg,
+                    wind_gust = dataDaily.wind_gust
                 )
             },
             timezone = input?.timezone

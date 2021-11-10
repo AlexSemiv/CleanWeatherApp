@@ -1,69 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppCleanWeatherTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/purple_200</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textColorSecondary">@color/white</item>
+    <style name="AppCleanWeatherTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Original AppCompat attributes. -->
+        <item name="colorAccent">@color/md_blue_800</item>
+        <item name="colorPrimary">@color/md_blue_900</item>
+        <item name="colorPrimaryDark">@color/md_blue_900</item>
+        <item name="colorSecondary">@color/md_blue_500</item>
+        <item name="android:colorBackground">@color/md_blue_700</item>
+        <item name="colorError">@color/errorColor</item>
+        <!-- New MaterialComponents attributes. -->
+        <item name="colorPrimaryVariant">@android:color/white</item>
+        <item name="colorSecondaryVariant">@color/md_blue_400</item>
+        <!--> toolbar color -->
+        <item name="colorSurface">@color/md_blue_900</item>
+        <item name="colorOnPrimary">@color/md_blue_50</item>
+        <item name="colorOnSecondary">@color/md_blue_50</item>
+        <item name="colorOnBackground">@color/md_blue_50</item>
+        <item name="colorOnError">@android:color/black</item>
+        <item name="colorOnSurface">@android:color/white</item>
+        <item name="scrimBackground">@color/mtrl_scrim_color</item>
+
+        <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
+        <item name="actionBarStyle">@style/ToolbarStyle</item>
         <item name="android:textViewStyle">@style/TextViewStyle</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="toolbarStyle">@style/ToolbarStyle</item>
-        <item name="switchStyle">@style/SwitchStyle</item>
-        <item name="searchViewStyle">@style/SearchViewStyle</item>
-        <item name="autoCompleteTextViewStyle">@style/SearchAutoCompleteTextView</item>
         <item name="linearProgressIndicatorStyle">@style/LinearProgressIndicator</item>
         <item name="imageButtonStyle">@style/ImageButtonStyle</item>
-        <item name="android:spinnerItemStyle">@style/SpinnerItemStyle</item>
-    </style>
-
-    <style name="SpinnerItemStyle" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
-        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="ImageButtonStyle" parent="Widget.AppCompat.ImageButton">
-        <item name="android:background">@color/sea</item>
+        <item name="android:background">@color/md_blue_700</item>
     </style>
 
     <style name="TextViewStyle" parent="android:Widget.TextView">
         <item name="fontFamily">@font/montserrat_regular</item>
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarPositiveButtonStyle">@style/ButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/ButtonStyle</item>
+    </style>
+
+
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="TextViewSmallStyle">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="titleCentered">true</item>
         <item name="fontFamily">@font/tahoma_bold</item>
-        <item name="subtitleTextColor">@android:color/black</item>
-        <item name="titleTextColor">@android:color/black</item>
     </style>
 
     <style name="StaticImageView">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
-    </style>
-
-    <style name="SwitchStyle" parent="Widget.AppCompat.CompoundButton.Switch">
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">14sp</item>
-        <item name="fontFamily">@font/tahoma_bold</item>
-    </style>
-
-    <style name="SearchViewStyle" parent="Widget.AppCompat.SearchView.ActionBar">
-        <item name="iconifiedByDefault">false</item>
-        <item name="defaultQueryHint">Find weather forecast..</item>
-        <item name="closeIconEnabled">true</item>
-    </style>
-
-    <style name="SearchAutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:textColorHint">@android:color/black</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
     </style>
 
     <style name="LinearProgressIndicator" parent="Widget.MaterialComponents.LinearProgressIndicator">
@@ -85,15 +97,6 @@
         <item name="cornerRadius">20dp</item>
         <item name="android:orientation">vertical</item>
         <item name="android:padding">8dp</item>
-    </style>
-
-    <style name="LottieStyle">
-        <item name="android:layout_width">40dp</item>
-        <item name="android:layout_height">40dp</item>
-        <item name="lottie_autoPlay">true</item>
-        <item name="lottie_loop">true</item>
-        <item name="lottie_rawRes">@raw/storm_showers_day</item>
-        <item name="android:repeatMode">restart</item>
     </style>
 
 </resources>

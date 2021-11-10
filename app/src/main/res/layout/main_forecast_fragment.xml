@@ -1,217 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <data>
+        <variable
+            name="forecast"
+            type="com.example.presentation.models.current.CurrentForecastUiModel"/>
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/main_fragment_menu"
-            tools:subtitle="updated 18:04 PM"
-            tools:title="London" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:menu="@menu/main_fragment_menu"
+                tools:subtitle="updated 18:04 PM"
+                tools:title="London"
+                app:titleSetTimezone="@{forecast.timezone}"
+                app:subtitleSetLastUpdateTime="@{forecast.current.dt}"/>
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/srlRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/ImageViewPressure"
-                style="@style/StaticImageView"
-                android:src="@drawable/ic_barometer"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
-                app:layout_constraintEnd_toStartOf="@+id/ImageViewHumidity"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_humidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/ImageViewHumidity"
-                app:layout_constraintStart_toStartOf="@+id/ImageViewHumidity"
-                app:layout_constraintTop_toBottomOf="@+id/ImageViewHumidity"
-                tools:text="20%" />
+                <ImageView
+                    android:id="@+id/ImageViewPressure"
+                    style="@style/StaticImageView"
+                    android:src="@drawable/ic_barometer"
+                    app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
+                    app:layout_constraintEnd_toStartOf="@+id/ImageViewHumidity"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
 
-            <ImageView
-                android:id="@+id/ImageViewHumidity"
-                style="@style/StaticImageView"
-                android:src="@drawable/ic_humidity"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
-                app:layout_constraintEnd_toStartOf="@+id/ImageViewWindSpeed"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ImageViewPressure"
-                app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/ImageViewHumidity"
+                    app:layout_constraintStart_toStartOf="@+id/ImageViewHumidity"
+                    app:layout_constraintTop_toBottomOf="@+id/ImageViewHumidity"
+                    android:text="@{String.valueOf(forecast.current.humidity)+`%`}"
+                    tools:text="20%" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_pressure"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/ImageViewPressure"
-                app:layout_constraintStart_toStartOf="@+id/ImageViewPressure"
-                app:layout_constraintTop_toBottomOf="@+id/ImageViewPressure"
-                tools:text="1045mBar" />
+                <ImageView
+                    android:id="@+id/ImageViewHumidity"
+                    style="@style/StaticImageView"
+                    android:src="@drawable/ic_humidity"
+                    app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
+                    app:layout_constraintEnd_toStartOf="@+id/ImageViewWindSpeed"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/ImageViewPressure"
+                    app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
 
-            <ImageView
-                android:id="@+id/ImageViewWindSpeed"
-                style="@style/StaticImageView"
-                android:src="@drawable/ic_wind"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ImageViewHumidity"
-                app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_pressure"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/ImageViewPressure"
+                    app:layout_constraintStart_toStartOf="@+id/ImageViewPressure"
+                    app:layout_constraintTop_toBottomOf="@+id/ImageViewPressure"
+                    android:text="@{String.valueOf(forecast.current.pressure)+`mBar`}"
+                    tools:text="1045mBar" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_wind_speed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/ImageViewWindSpeed"
-                app:layout_constraintStart_toStartOf="@+id/ImageViewWindSpeed"
-                app:layout_constraintTop_toBottomOf="@+id/ImageViewWindSpeed"
-                tools:text="5.69m/sec" />
+                <ImageView
+                    android:id="@+id/ImageViewWindSpeed"
+                    style="@style/StaticImageView"
+                    android:src="@drawable/ic_wind"
+                    app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/ImageViewHumidity"
+                    app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/lottie_icon"
-                style="@style/LottieStyle"
-                app:layout_constraintBottom_toTopOf="@+id/tv_temp"
-                app:layout_constraintStart_toStartOf="@+id/tv_temp"
-                app:layout_constraintTop_toTopOf="@+id/tv_description"
-                tools:src="@drawable/ic_launcher_background" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_wind_speed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="@+id/ImageViewWindSpeed"
+                    app:layout_constraintStart_toStartOf="@+id/ImageViewWindSpeed"
+                    app:layout_constraintTop_toBottomOf="@+id/ImageViewWindSpeed"
+                    tools:text="5.69m/sec"
+                    app:textSetWindSpeed="@{forecast.current.wind_speed}" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toTopOf="@+id/tv_temp"
-                app:layout_constraintStart_toEndOf="@+id/lottie_icon"
-                tools:text="Cloudy" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_temp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_temp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_temp"
+                    tools:text="Cloudy"
+                    app:textSetDescription="@{String.valueOf(forecast.current.weatherCurrent.description)}"/>
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_show_info_dialog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_more_info"
-                app:layout_constraintStart_toEndOf="@+id/tv_description"
-                app:layout_constraintTop_toTopOf="@+id/tv_description" />
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_show_info_dialog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_more_info"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_description"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_description" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_temp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textSize="96sp"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineMain"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guidelineMain"
-                tools:text="15°" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_temp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:textSize="96sp"
+                    app:layout_constraintBottom_toTopOf="@+id/guidelineMain"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="15°"
+                    app:textSetTemp="@{forecast.current.temp}"/>
 
-            <ImageView
-                android:id="@+id/ImageViewSunset"
-                style="@style/StaticImageView"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="8dp"
-                android:src="@drawable/ic_sunset"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineMain"
-                app:layout_constraintStart_toEndOf="@+id/tv_temp" />
+                <ImageView
+                    android:id="@+id/ImageViewSunset"
+                    style="@style/StaticImageView"
+                    android:layout_marginEnd="8dp"
+                    android:src="@drawable/ic_sunset"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_sunset"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_sunset" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_sunset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintStart_toEndOf="@+id/ImageViewSunset"
-                app:layout_constraintTop_toTopOf="@+id/ImageViewSunset"
-                tools:text="21:00" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_sunset"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guidelineMain"
+                    tools:text="21:00"
+                    app:textSetTime="@{forecast.current.sunset}"/>
 
-            <ImageView
-                android:id="@+id/ImageViewSunrise"
-                style="@style/StaticImageView"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/ic_sunrise"
-                app:layout_constraintStart_toEndOf="@+id/tv_temp"
-                app:layout_constraintTop_toTopOf="@+id/guidelineMain" />
+                <ImageView
+                    android:id="@+id/ImageViewSunrise"
+                    style="@style/StaticImageView"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_sunrise"
+                    app:layout_constraintStart_toEndOf="@+id/tv_sunrise"
+                    app:layout_constraintTop_toTopOf="@+id/tv_sunrise" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_sunrise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/ImageViewSunrise"
-                app:layout_constraintStart_toEndOf="@+id/ImageViewSunrise"
-                tools:text="8:00" />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_sunrise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guidelineMain"
+                    tools:text="10:00"
+                    app:textSetTime="@{forecast.current.sunrise}"/>
 
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/mainFragmentProgressIndicator"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/mainFragmentProgressIndicator"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineChart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.65" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineChart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.65" />
 
-            <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/mainFragmentSpinnerChart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
-                android:entries="@array/charts"
-                android:spinnerMode="dialog"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineChart"
-                app:layout_constraintEnd_toEndOf="parent" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.55" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChart"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guidelineChart" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineOther"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_percent="0.15" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineMain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.45" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDaily"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/guidelineChart" />
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineOther"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

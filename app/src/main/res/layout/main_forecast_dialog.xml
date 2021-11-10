@@ -1,71 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/LinearLayoutStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="12.02.2001" />
+    <data>
+        <variable
+            name="current"
+            type="com.example.presentation.models.current.Current" />
+    </data>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_temp_and_feels_like"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="12° (feels like 10°)" />
+    <LinearLayout
+        style="@style/LinearLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_dev_point"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="Dev point: 7°" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            tools:text="12.02.2001"
+            app:textSetDate="@{current.dt}"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_uvi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="Uvi: 0.99" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_temp_and_feels_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            tools:text="12° (feels like 10°)"
+            app:dialogTextSetTemp="@{current.temp}"/>
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_clouds"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="Clouds: 100" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_dev_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{`Dew point: `+String.valueOf(current.dew_point)+`°`}" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_visibility"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="Visibility: 10000" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_uvi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{`Uvi: `+String.valueOf(current.uvi)}" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_wind_speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="Wind speed: 5.95" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_clouds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{`Clouds: `+String.valueOf(current.clouds)}" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_wind_deg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="Wind deg: 206" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_visibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{`Visibility: `+String.valueOf(current.visibility)+`m`}" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tv_wind_gust"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        tools:text="Wind gust: 8.33" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_wind_speed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:dialogTextSetWindSpeed="@{current.wind_speed}" />
 
-</LinearLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_wind_deg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{`Wind deg: `+String.valueOf(current.wind_deg)}"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_wind_gust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{`Wind gust: `+String.valueOf(current.wind_gust)}" />
+
+    </LinearLayout>
+
+</layout>

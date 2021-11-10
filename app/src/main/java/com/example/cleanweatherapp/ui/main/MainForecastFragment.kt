@@ -1,9 +1,7 @@
 package com.example.cleanweatherapp.ui.main
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
@@ -15,13 +13,10 @@ import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
 import com.example.cleanweatherapp.ui.MainActivity
-import com.example.common.other.ConvertFunctions
 import com.example.presentation.contracts.CurrentContract
 import com.example.presentation.models.current.CurrentForecastUiModel
-import com.example.presentation.models.current.Daily
 import com.example.presentation.viewmodels.CurrentForecastViewModel
 import com.example.presentation.viewmodels.factory.ViewModelFactory
-import com.github.mikephil.charting.data.Entry
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -136,46 +131,13 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
     private fun inflateData(forecast: CurrentForecastUiModel?) {
         if(forecast == null)
             return
-
-        with(binding) {
-            btnShowInfoDialog.setOnClickListener {
-                viewModel?.setEffect(
-                    CurrentContract.Effect.ShowMoreInfoDialog(
-                        forecast = forecast
-                    )
+        binding.forecast = forecast
+        binding.btnShowInfoDialog.setOnClickListener {
+            viewModel?.setEffect(
+                CurrentContract.Effect.ShowMoreInfoDialog(
+                    forecast = forecast
                 )
-            }
-            toolbar.title = ConvertFunctions.formattedTitle(forecast.timezone!!)
-            toolbar.subtitle = "last update ${ConvertFunctions.formattedTime(forecast.current?.dt ?: 0)}"
-            tvHumidity.text = "${forecast.current?.humidity}%"
-            tvPressure.text = "${forecast.current?.pressure}mBar"
-            tvWindSpeed.text = "${forecast.current?.wind_speed}m/sec"
-            lottieIcon.setAnimation(when(forecast.current?.weatherCurrent?.icon) {
-                "01d" -> R.raw.clear_sky_day
-                "01n" -> R.raw.clear_sky_night
-                "02d", "03d", "04d" -> R.raw.cloudy_day
-                "02n", "03n", "04n" -> R.raw.cloudy_night
-                "09d", "10d" -> R.raw.rain_day
-                "09n", "10n" -> R.raw.rain_night
-                "11d", "11n" -> R.raw.thunder
-                "13d" -> R.raw.snow_day
-                "13n" -> R.raw.snow_night
-                "50d" -> R.raw.mist_day
-                "50n" -> R.raw.mist_night
-                else -> R.raw.clear_sky_day
-            })
-            tvDescription.text = ConvertFunctions.formattedDescription(forecast.current?.weatherCurrent?.description ?: "Description")
-            tvTemp.text = "${forecast.current?.temp?.toInt()}°"
-            tvSunset.text = ConvertFunctions.formattedTime(forecast.current?.sunset ?: 0)
-            tvSunrise.text = ConvertFunctions.formattedTime(forecast.current?.sunrise ?: 0)
-
-            // TODO: 09.11.2021 сделать график как в фитнес треккере
-            /*val lineEntry = forecast.daily?.dailyToEntry()
-            val lineDataSet = LineDataSet(lineEntry, "First")
-            lineDataSet.color = resources.getColor(R.color.black)
-            val data = LineData(lineDataSet)
-            lineChart.data = data
-            lineChart.background = null*/
+            )
         }
     }
 }

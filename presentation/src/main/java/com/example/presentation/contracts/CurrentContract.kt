@@ -9,20 +9,15 @@ class CurrentContract {
 
     sealed class Event : UiEvent {
         object OnFetchCurrentForecastNetwork : Event()
-
-        data class OnSpinnerItemClicked(
-            val position: Int
-        ) : Event()
     }
 
     data class State(
-        val currentForecastState: CurrentForecastState,
-        val selectedSpinnerChartItem: Int = 0
+        val currentForecastState: CurrentForecastState
     ) : UiState
 
     sealed class CurrentForecastState {
         object Idle : CurrentForecastState()
-        data class Loading(val cashedForecast: CurrentForecastUiModel?) : CurrentForecastState()
+        data class Loading(val cashedForecast: CurrentForecastUiModel) : CurrentForecastState()
         data class Success(val forecast: CurrentForecastUiModel) : CurrentForecastState()
     }
 

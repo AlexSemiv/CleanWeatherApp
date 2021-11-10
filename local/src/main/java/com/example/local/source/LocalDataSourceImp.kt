@@ -41,7 +41,6 @@ class LocalDataSourceImp @Inject constructor(
             wind_speed = 0.0
         ),
         daily = listOf(),
-        hourly = listOf(),
         timezone = "Unknown."
     )
 

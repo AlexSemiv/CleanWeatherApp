@@ -24,17 +24,15 @@
         app:layout_constraintTop_toBottomOf="@+id/searchItemDate"
         tools:text="Scattered clouds." />
 
-    <com.airbnb.lottie.LottieAnimationView
+    <ImageView
         android:id="@+id/searchItemIcon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        style="@style/StaticImageView"
         android:layout_marginTop="32dp"
-        style="@style/LottieStyle"
         app:layout_constraintEnd_toStartOf="@+id/ImageViewPressure"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchItemDescription"
-        tools:src="@drawable/ic_launcher_foreground" />
+        android:src="@drawable/ic_thermostat" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/searchItemTemp"
