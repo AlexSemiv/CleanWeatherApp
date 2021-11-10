@@ -32,9 +32,6 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    @Inject
-    lateinit var preferences: SharedPreferences
-
     private var viewModel: CurrentForecastViewModel? = null
 
     override fun bindLayout(
@@ -54,6 +51,10 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this, factory)[CurrentForecastViewModel::class.java]
+
+        (activity as MainActivity).setOnUnitsChangeListener {
+            viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecastNetwork)
+        }
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {

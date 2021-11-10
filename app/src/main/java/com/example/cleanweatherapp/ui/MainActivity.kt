@@ -1,5 +1,6 @@
 package com.example.cleanweatherapp.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,8 +12,27 @@ import com.example.common.base.BaseActivity
 import com.example.cleanweatherapp.databinding.ActivityMainBinding
 import com.example.cleanweatherapp.di.components.ApplicationComponent
 import com.example.cleanweatherapp.di.components.MainActivitySubComponent
+import com.example.common.other.Constants
+import javax.inject.Inject
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
+
+    @Inject
+    lateinit var preferences: SharedPreferences
+
+    fun setOnUnitsChangeListener(listener: (() -> Unit)) {
+        onUnitsChangeListener = listener
+    }
+    private var onUnitsChangeListener: (() -> Unit)? = null
+
+    private val preferencesListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+        when (key) {
+            Constants.KEY_UNITS -> {
+                onUnitsChangeListener?.invoke()
+            }
+            else -> Unit
+        }
+    }
 
     var activitySubComponent: MainActivitySubComponent? = null
 
@@ -22,6 +42,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val applicationComponent = (application as BaseApplication).applicationComponent
+        applicationComponent.injectActivity(this)
         activitySubComponent = applicationComponent.getMainActivitySubComponent()
         super.onCreate(savedInstanceState)
 
@@ -37,5 +58,15 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        preferences.registerOnSharedPreferenceChangeListener(preferencesListener)
+        super.onStart()
+    }
+
+    override fun onPause() {
+        preferences.unregisterOnSharedPreferenceChangeListener(preferencesListener)
+        super.onPause()
     }
 }
