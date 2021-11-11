@@ -25,9 +25,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     }
     private var onUnitsChangeListener: (() -> Unit)? = null
 
-    private val preferencesListener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
+    private val preferencesListener = SharedPreferences.OnSharedPreferenceChangeListener { preference, key ->
         when (key) {
             Constants.KEY_UNITS -> {
+                Constants.setUnitsOfMeasurement(preference.getString(key, "metric") ?: "metric")
                 onUnitsChangeListener?.invoke()
             }
             else -> Unit

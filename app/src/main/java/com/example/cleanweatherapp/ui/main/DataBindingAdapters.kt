@@ -72,6 +72,15 @@ fun dialogTextSetTemp(view: MaterialTextView, temp: Double?) {
     }
 }
 
+@BindingAdapter("app:dialogTextSetDevPoint")
+fun dialogTextSetDevPoint(view: MaterialTextView, temp: Double?) {
+    try {
+        view.text = "Dev point: ${temp?.toInt()}${Constants.UNITS_OF_MEASUREMENT_TEMP}"
+    } catch (e: Exception){
+        view.text = "Dev point: 0${Constants.DEGREE}"
+    }
+}
+
 @BindingAdapter("app:textSetTime")
 fun textSetTime(view: MaterialTextView, timeInSeconds: Int?) {
     try {
