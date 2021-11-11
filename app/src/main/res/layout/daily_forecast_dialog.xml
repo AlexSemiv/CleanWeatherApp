@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="current"
-            type="com.example.presentation.models.current.Current" />
+            name="daily"
+            type="com.example.presentation.models.current.Daily" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +22,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_temp_and_feels_like"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:textSetDate="@{current.dt}"
+            app:textSetDate="@{daily.dt}"
             tools:text="12.02.2001" />
 
         <com.google.android.material.textview.MaterialTextView
@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:dialogTextSetTemp="@{current.temp}"
+            app:dialogTextSetTemp="@{daily.temp}"
             app:layout_constraintBottom_toTopOf="@+id/tv_dev_point"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_date"
@@ -41,77 +41,88 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{`Dew point: `+String.valueOf(current.dew_point)+`°`}"
+            android:text="@{`Dew point: `+String.valueOf(daily.dew_point)+`°`}"
             app:layout_constraintBottom_toTopOf="@+id/tv_uvi"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_temp_and_feels_like"
-            tools:text="tv_dev_point" />
+            tools:text="dev_point" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_uvi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{`Uvi: `+String.valueOf(current.uvi)}"
+            android:text="@{`Uvi: `+String.valueOf(daily.uvi)}"
             app:layout_constraintBottom_toTopOf="@+id/tv_clouds"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_dev_point"
-            tools:text="tv_uvi" />
+            tools:text="uvi" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_clouds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{`Clouds: `+String.valueOf(current.clouds)}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_visibility"
+            android:text="@{`Clouds: `+String.valueOf(daily.clouds)}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_rain"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_uvi"
-            tools:text="tv_clouds" />
+            tools:text="clouds" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_visibility"
+            android:id="@+id/tv_rain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{`Visibility: `+String.valueOf(current.visibility)+`m`}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_wind_speed"
+            android:text="@{`Rain: `+String.valueOf(daily.rain)}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_snow"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_clouds"
-            tools:text="tv_visibility" />
+            tools:text="rain" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_snow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{`Snow: `+String.valueOf(daily.snow)}"
+            app:layout_constraintBottom_toTopOf="@+id/tv_wind_speed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rain"
+            tools:text="snow" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_wind_speed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            app:dialogTextSetWindSpeed="@{current.wind_speed}"
+            app:dialogTextSetWindSpeed="@{daily.wind_speed}"
             app:layout_constraintBottom_toTopOf="@+id/tv_wind_deg"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_visibility"
-            tools:text="tv_wind_speed" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_snow"
+            tools:text="speed" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_wind_deg"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{`Wind deg: `+String.valueOf(current.wind_deg)}"
+            android:text="@{`Wind deg: `+String.valueOf(daily.wind_deg)}"
             app:layout_constraintBottom_toTopOf="@+id/tv_wind_gust"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_wind_speed"
-            tools:text="tv_wind_deg" />
+            tools:text="deg" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tv_wind_gust"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{`Wind gust: `+String.valueOf(current.wind_gust)}"
+            android:text="@{`Wind gust: `+String.valueOf(daily.wind_gust)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_wind_deg"
-            tools:text="tv_wind_gust" />
+            tools:text="gust" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

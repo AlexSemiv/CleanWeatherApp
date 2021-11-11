@@ -5,7 +5,7 @@ import com.example.common.base.BaseViewHolder
 import com.example.presentation.models.current.Daily
 
 class DailyViewHolder(
-    private val binding: MainForecastItemBinding
+    val binding: MainForecastItemBinding
 ) : BaseViewHolder<Daily, MainForecastItemBinding> (binding) {
 
     override fun bind() {

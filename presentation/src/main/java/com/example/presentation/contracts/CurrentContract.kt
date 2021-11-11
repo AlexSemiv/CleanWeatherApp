@@ -4,6 +4,7 @@ import com.example.common.base.UiEffect
 import com.example.common.base.UiEvent
 import com.example.common.base.UiState
 import com.example.presentation.models.current.CurrentForecastUiModel
+import com.example.presentation.models.current.Daily
 
 class CurrentContract {
 
@@ -23,6 +24,7 @@ class CurrentContract {
 
     sealed class Effect : UiEffect {
         data class ShowError(val message: String?) : Effect()
-        data class ShowMoreInfoDialog(val forecast: CurrentForecastUiModel) : Effect()
+        data class ShowMoreInfoCurrentDialog(val forecast: CurrentForecastUiModel) : Effect()
+        data class ShowMoreInfoDailyDialog(val daily: Daily) : Effect()
     }
 }

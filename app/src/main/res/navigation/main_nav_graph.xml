@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_mainForecastFragment_to_detailDialogFragment"
             app:destination="@id/detailDialogFragment" />
+        <action
+            android:id="@+id/action_mainForecastFragment_to_itemDialogFragment"
+            app:destination="@id/itemDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchForecastFragment"
@@ -39,4 +42,14 @@
     <action
         android:id="@+id/globalActionToSettingsFragment"
         app:destination="@id/settingsFragment"/>
+    <dialog
+        android:id="@+id/itemDialogFragment"
+        android:name="com.example.cleanweatherapp.ui.detail.ItemDialogFragment"
+        android:label="ItemDialogFragment"
+        tools:layout="@layout/daily_forecast_dialog">
+        <argument
+            android:name="daily"
+            app:argType="com.example.presentation.models.current.Daily"
+            app:nullable="true" />
+    </dialog>
 </navigation>

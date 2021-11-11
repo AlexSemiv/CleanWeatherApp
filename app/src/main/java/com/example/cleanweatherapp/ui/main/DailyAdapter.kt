@@ -13,6 +13,12 @@ import javax.inject.Inject
 class DailyAdapter @Inject constructor(
     callback: DiffUtil.ItemCallback<Daily>
 ): BaseRecyclerAdapter<Daily, MainForecastItemBinding, DailyViewHolder> (callback = callback) {
+
+    private var onItemClickListener: ((Daily) -> Unit)? = null
+    fun setOnItemClickListener(listener: (Daily) -> Unit) {
+        onItemClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
         return DailyViewHolder(
             binding = MainForecastItemBinding.inflate(
@@ -20,8 +26,13 @@ class DailyAdapter @Inject constructor(
                 parent,
                 false
             )
-        ).also {
+        )
+    }
 
+    override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
+        super.onBindViewHolder(holder, position)
+        holder.binding.btnItemShowMore.setOnClickListener {
+            onItemClickListener?.invoke(getItem(position))
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.example.cleanweatherapp.ui.main
 
 import android.content.Context
-import android.graphics.Canvas
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.isVisible
@@ -12,7 +11,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
@@ -70,10 +68,20 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
             }
         }
 
+        dailyAdapter.setOnItemClickListener { dailyForecast ->
+            viewModel?.setEffect(CurrentContract.Effect.ShowMoreInfoDailyDialog(dailyForecast))
+        }
+
         binding.rvDaily.apply {
             adapter = dailyAdapter
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL))
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.HORIZONTAL
+                )
+            )
         }
 
         binding.srlRefresh.apply {
@@ -129,11 +137,19 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                                 errorView.dismiss()
                             }.show()
                         }
-                        is CurrentContract.Effect.ShowMoreInfoDialog -> {
+                        is CurrentContract.Effect.ShowMoreInfoCurrentDialog -> {
                             val forecast = it.forecast
                             findNavController().navigate(
                                 MainForecastFragmentDirections.actionMainForecastFragmentToDetailDialogFragment(
                                     current = forecast.current
+                                )
+                            )
+                        }
+                        is CurrentContract.Effect.ShowMoreInfoDailyDialog -> {
+                            val daily = it.daily
+                            findNavController().navigate(
+                                MainForecastFragmentDirections.actionMainForecastFragmentToItemDialogFragment(
+                                    daily
                                 )
                             )
                         }
@@ -144,12 +160,12 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
     }
 
     private fun inflateData(forecast: CurrentForecastUiModel?) {
-        if(forecast == null)
+        if (forecast == null)
             return
         binding.forecast = forecast
         binding.btnShowInfoDialog.setOnClickListener {
             viewModel?.setEffect(
-                CurrentContract.Effect.ShowMoreInfoDialog(
+                CurrentContract.Effect.ShowMoreInfoCurrentDialog(
                     forecast = forecast
                 )
             )
