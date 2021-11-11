@@ -1,6 +1,7 @@
 package com.example.cleanweatherapp.ui.main
 
 import android.content.Context
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.*
 import androidx.core.view.isVisible
@@ -9,6 +10,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
@@ -26,6 +30,9 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
 
     @Inject
     lateinit var factory: ViewModelFactory
+
+    @Inject
+    lateinit var dailyAdapter: DailyAdapter
 
     private var viewModel: CurrentForecastViewModel? = null
 
@@ -63,6 +70,12 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
             }
         }
 
+        binding.rvDaily.apply {
+            adapter = dailyAdapter
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.HORIZONTAL))
+        }
+
         binding.srlRefresh.apply {
             setOnRefreshListener {
                 viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecastNetwork)
@@ -87,10 +100,12 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                         is CurrentContract.CurrentForecastState.Loading -> {
                             binding.mainFragmentProgressIndicator.isVisible = true
                             val cashedForecast = state.cashedForecast
+                            dailyAdapter.submitList(cashedForecast?.daily)
                             inflateData(cashedForecast)
                         }
                         is CurrentContract.CurrentForecastState.Success -> {
                             val forecast = state.forecast
+                            dailyAdapter.submitList(forecast.daily)
                             inflateData(forecast)
                             binding.mainFragmentProgressIndicator.isVisible = false
                         }

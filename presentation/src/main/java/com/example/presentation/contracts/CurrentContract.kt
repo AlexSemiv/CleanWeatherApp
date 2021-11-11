@@ -17,7 +17,7 @@ class CurrentContract {
 
     sealed class CurrentForecastState {
         object Idle : CurrentForecastState()
-        data class Loading(val cashedForecast: CurrentForecastUiModel) : CurrentForecastState()
+        data class Loading(val cashedForecast: CurrentForecastUiModel?) : CurrentForecastState()
         data class Success(val forecast: CurrentForecastUiModel) : CurrentForecastState()
     }
 

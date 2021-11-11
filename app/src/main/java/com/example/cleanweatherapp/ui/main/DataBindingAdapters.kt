@@ -30,7 +30,7 @@ fun titleSetTimezone(view: MaterialToolbar, timeZone: String?) {
 @BindingAdapter("app:textSetDescription")
 fun textSetDescription(view: MaterialTextView, description: String?) {
     try {
-        view.text = "${description?.getOrNull(0)?.uppercaseChar()}${description?.substring(1)}."
+        view.text = "${description?.getOrNull(0)?.uppercaseChar()}${description?.substring(1)}"
     } catch (e: Exception){
         view.text = "unknown"
     }

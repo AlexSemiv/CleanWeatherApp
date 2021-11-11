@@ -3,7 +3,6 @@ package com.example.cleanweatherapp.di.components
 import android.app.Application
 import com.example.cleanweatherapp.di.modules.*
 import com.example.cleanweatherapp.ui.MainActivity
-import com.example.cleanweatherapp.ui.main.MainForecastFragment
 import com.example.domain.qualifiers.ApplicationScope
 import dagger.BindsInstance
 import dagger.Component

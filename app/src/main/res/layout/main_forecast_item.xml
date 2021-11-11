@@ -1,110 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="250dp"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/ivTemp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Friday, 12 may" />
+    <data>
 
-    <ImageView
-        android:id="@+id/ivTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:src="@drawable/ic_thermostat"
-        app:layout_constraintBottom_toTopOf="@+id/ivHumidity"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+        <variable
+            name="daily"
+            type="com.example.presentation.models.current.Daily" />
+    </data>
 
-    <ImageView
-        android:id="@+id/ivHumidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:src="@drawable/ic_humidity"
-        app:layout_constraintBottom_toTopOf="@+id/ivPressure"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivTemp" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="250dp"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/ivPressure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:src="@drawable/ic_barometer"
-        app:layout_constraintBottom_toTopOf="@+id/tvRain"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivHumidity" />
+        <ImageButton
+            android:id="@+id/btnItemShowMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_more_info"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDate"
+            app:layout_constraintEnd_toStartOf="@+id/tvDate" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivTemp"
-        app:layout_constraintStart_toEndOf="@+id/ivTemp"
-        tools:text="18*C (feels like 15*C)" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/tvDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:textSetDate="@{daily.dt}"
+            tools:text="Friday, 12 may" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvHumidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivHumidity"
-        app:layout_constraintStart_toEndOf="@+id/ivHumidity"
-        tools:text="18%" />
+        <ImageView
+            android:id="@+id/ivTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_thermostat"
+            app:layout_constraintBottom_toTopOf="@+id/ivHumidity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvPressure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivPressure"
-        app:layout_constraintStart_toEndOf="@+id/ivPressure"
-        tools:text="1146mBar" />
+        <ImageView
+            android:id="@+id/ivHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_humidity"
+            app:layout_constraintBottom_toTopOf="@+id/ivPressure"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivTemp" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvRain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/tvSnow"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPressure"
-        tools:text="Rain: 18%" />
+        <ImageView
+            android:id="@+id/ivPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_barometer"
+            app:layout_constraintBottom_toTopOf="@+id/ivWindSpeed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivHumidity" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvSnow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRain"
-        tools:text="Show: 2%" />
+        <ImageView
+            android:id="@+id/ivWindSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_wind"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPressure" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/ivTemp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDate"
+            app:textSetDescription="@{daily.weather.description}"
+            tools:text="description" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTemp"
+            app:layout_constraintStart_toEndOf="@+id/ivTemp"
+            app:textSetTemp="@{daily.temp}"
+            tools:text="18*C" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHumidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(daily.humidity)+`%`}"
+            app:layout_constraintBottom_toBottomOf="@+id/ivHumidity"
+            app:layout_constraintStart_toEndOf="@+id/ivHumidity"
+            tools:text="18%" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvPressure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{String.valueOf(daily.pressure)+`mBar`}"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPressure"
+            app:layout_constraintStart_toEndOf="@+id/ivPressure"
+            tools:text="1146mBar" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvWindSpeed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivWindSpeed"
+            app:layout_constraintStart_toEndOf="@+id/ivWindSpeed"
+            app:textSetWindSpeed="@{daily.wind_speed}"
+            tools:text="fddgs" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
