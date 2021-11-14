@@ -7,7 +7,10 @@ import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.repository.Repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
 import java.lang.Exception
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class RepositoryImpl @Inject constructor(
@@ -35,10 +38,24 @@ class RepositoryImpl @Inject constructor(
 
                 val currentDomainForecast = mapper.from(currentDataForecast)
                 emit(Resource.Success(data = currentDomainForecast))
-            } catch (e1: Exception) {
+            }
+            catch (e1: Exception) {
                 try {
                     val localDataForecast = localDataSource.getLastSavedCurrentForecastData()
-                    emit(Resource.Success(data = mapper.from(localDataForecast)))
+                    when (e1) {
+                        is UnknownHostException -> {
+                            emit(Resource.Error(data = mapper.from(localDataForecast), message = "No internet connection."))
+                        }
+                        is SocketTimeoutException -> {
+                            emit(Resource.Error(data = mapper.from(localDataForecast), message = "Server has been unresponsive for a long time."))
+                        }
+                        is HttpException -> {
+                            emit(Resource.Error(data = mapper.from(localDataForecast), message = "Server error response."))
+                        }
+                        else -> {
+                            emit(Resource.Error(data = mapper.from(localDataForecast), message = e1.message ?: ":("))
+                        }
+                    }
                 } catch (e2: Exception) {
                     emit(Resource.Error(message = e2.message ?: ":("))
                 }

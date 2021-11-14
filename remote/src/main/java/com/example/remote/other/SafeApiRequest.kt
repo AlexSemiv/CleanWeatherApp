@@ -2,6 +2,7 @@ package com.example.remote.other
 
 import retrofit2.Response
 import java.io.IOException
+import java.lang.IllegalStateException
 
 class ApiLimitException(message: String): IOException(message)
 class InvalidFormatException(message: String): IOException(message)
@@ -35,8 +36,7 @@ object SafeApiRequest {
                 UNSUCCESS_503 -> throw ServiceOfflineException("Access to your account has been suspended, contact TMDb.")
                 UNSUCCESS_500 -> throw InternalErrorException("Access to your account has been suspended, contact TMDb.")
                 UNSUCCESS_504 -> throw TimeoutRequestException("Your request to the backend server timed out. Try again.")
-                // and other ...
-                else -> null
+                else -> throw IllegalStateException()
             }
         }
     }

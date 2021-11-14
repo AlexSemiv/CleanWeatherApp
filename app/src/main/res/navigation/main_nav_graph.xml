@@ -10,15 +10,6 @@
         android:name="com.example.cleanweatherapp.ui.main.MainForecastFragment"
         android:label="MainForecastFragment"
         tools:layout="@layout/main_forecast_fragment">
-        <action
-            android:id="@+id/action_mainForecastFragment_to_detailDialogFragment"
-            app:destination="@id/detailDialogFragment" />
-        <action
-            android:id="@+id/action_mainForecastFragment_to_itemDialogFragment"
-            app:destination="@id/itemDialogFragment" />
-        <action
-            android:id="@+id/action_mainForecastFragment_to_permissionDialog"
-            app:destination="@id/permissionDialog" />
     </fragment>
     <fragment
         android:id="@+id/searchForecastFragment"
@@ -45,6 +36,15 @@
     <action
         android:id="@+id/globalActionToSettingsFragment"
         app:destination="@id/settingsFragment"/>
+    <action
+        android:id="@+id/globalActionToItemDialogFragment"
+        app:destination="@id/itemDialogFragment" />
+    <action
+        android:id="@+id/globalActionToDetailDialogFragment"
+        app:destination="@id/detailDialogFragment" />
+    <action
+        android:id="@+id/globalActionToPermissionDialog"
+        app:destination="@id/permissionDialog" />
     <dialog
         android:id="@+id/itemDialogFragment"
         android:name="com.example.cleanweatherapp.ui.detail.ItemDialogFragment"

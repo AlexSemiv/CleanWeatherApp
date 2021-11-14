@@ -64,7 +64,7 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
 
         viewModel = ViewModelProvider(this, factory)[CurrentForecastViewModel::class.java]
 
-        subscribeObservers(savedInstanceState)
+        subscribeObservers()
 
         if (viewModel?.currentState?.currentForecastState == CurrentContract.CurrentForecastState.Idle)
             viewModel?.setEvent(CurrentContract.Event.OnFetchCurrentForecastLocal)
@@ -143,13 +143,14 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
         } else {
             if (shouldShowDialogDuePermission(Manifest.permission.ACCESS_FINE_LOCATION) ||
                 shouldShowDialogDuePermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-            )
+            ) {
+                viewModel?.setEffect(CurrentContract.Effect.ShowPermissionsRequiredDialog)
                 viewModel?.setEvent(
                     CurrentContract.Event.OnChangePermissionsState(
                         newState = CurrentContract.CurrentPermissionState.PermissionsPermanentlyDenied
                     )
                 )
-            else
+            } else
                 viewModel?.setEvent(
                     CurrentContract.Event.OnChangePermissionsState(
                         newState = CurrentContract.CurrentPermissionState.PermissionsDenied
@@ -164,7 +165,7 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
             permission
         )
 
-    private fun subscribeObservers(savedInstanceState: Bundle?) {
+    private fun subscribeObservers() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel?.uiState?.collect {
@@ -180,8 +181,6 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                         }
                         is CurrentContract.CurrentPermissionState.PermissionsPermanentlyDenied -> {
                             currentLocationLiveData.removeObservers(viewLifecycleOwner)
-                            if (savedInstanceState == null)
-                                viewModel?.setEffect(CurrentContract.Effect.ShowPermissionsRequiredDialog)
                         }
                     }
 
@@ -212,6 +211,7 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                     when (it) {
                         is CurrentContract.Effect.ShowError -> {
                             binding.btnShowInfoDialog.setOnClickListener(null)
+                            binding.mainFragmentProgressIndicator.isVisible = false
                             val errorView = Snackbar.make(
                                 requireView(),
                                 it.message ?: "Unknown error",
@@ -224,22 +224,24 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                         is CurrentContract.Effect.ShowMoreInfoCurrentDialog -> {
                             val forecast = it.forecast
                             findNavController().navigate(
-                                MainForecastFragmentDirections.actionMainForecastFragmentToDetailDialogFragment(
-                                    current = forecast.current
-                                )
+                                R.id.globalActionToDetailDialogFragment,
+                                Bundle().apply {
+                                    putSerializable("current", forecast.current)
+                                }
                             )
                         }
                         is CurrentContract.Effect.ShowMoreInfoDailyDialog -> {
                             val daily = it.daily
                             findNavController().navigate(
-                                MainForecastFragmentDirections.actionMainForecastFragmentToItemDialogFragment(
-                                    daily
-                                )
+                                R.id.globalActionToItemDialogFragment,
+                                Bundle().apply {
+                                    putSerializable("daily", daily)
+                                }
                             )
                         }
                         is CurrentContract.Effect.ShowPermissionsRequiredDialog -> {
                             findNavController().navigate(
-                                MainForecastFragmentDirections.actionMainForecastFragmentToPermissionDialog()
+                                R.id.globalActionToPermissionDialog
                             )
                         }
                     }
