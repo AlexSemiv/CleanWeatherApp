@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.lang.Exception
+import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 class GetCurrentForecastNetworkUseCase @Inject constructor(
@@ -19,15 +20,19 @@ class GetCurrentForecastNetworkUseCase @Inject constructor(
         try {
             argumentNetwork?.let { arg ->
                 return repository.getCurrentForecastNetwork(
-                    latitude = arg.latitude,
-                    longitude = arg.longitude
+                    latitude = requireNotNull(arg.latitude),
+                    longitude = requireNotNull(arg.longitude)
                 ).flowOn(Dispatchers.IO)
             }
             return flow {
                 emit(Resource.Error(message = "Argument in useCase is null"))
             }
-        } catch (e: Exception) {
-            return flow { emit(Resource.Error(message = e.message ?: ":(")) }
+        }
+        catch (e: IllegalArgumentException) {
+            return flow { emit(Resource.Error(message = "App can't find your current location. Try again later, please.")) }
+        }
+        catch (e: Exception) {
+            return flow { emit(Resource.Error(message = e.message ?: "")) }
         }
     }
 }

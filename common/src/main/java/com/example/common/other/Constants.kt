@@ -59,4 +59,7 @@ object Constants {
     } catch (e: Exception) {
         "Friday, 10 January"
     }
+
+    const val LOCATION_REQUEST_INTERVAL = 30 * 1000L
+    const val FASTEST_LOCATION_INTERVAL = 10 * 1000L
 }

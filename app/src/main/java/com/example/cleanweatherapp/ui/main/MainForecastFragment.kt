@@ -3,6 +3,7 @@ package com.example.cleanweatherapp.ui.main
 import android.Manifest
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -23,6 +24,7 @@ import com.example.common.other.Constants.toFormattedDescription
 import com.example.common.other.Constants.toFormattedHoursAndMinutes
 import com.example.common.other.Constants.toFormattedTitle
 import com.example.presentation.contracts.CurrentContract
+import com.example.presentation.livedata.CurrentLocationLiveData
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.presentation.viewmodels.CurrentForecastViewModel
 import com.example.presentation.viewmodels.factory.ViewModelFactory
@@ -38,6 +40,9 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
 
     @Inject
     lateinit var dailyAdapter: DailyAdapter
+
+    @Inject
+    lateinit var currentLocationLiveData: CurrentLocationLiveData
 
     private var viewModel: CurrentForecastViewModel? = null
 
@@ -164,10 +169,17 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel?.uiState?.collect {
                     when (it.currentPermissionsState) {
-                        is CurrentContract.CurrentPermissionState.Idle,
-                        CurrentContract.CurrentPermissionState.PermissionsGranted,
-                        CurrentContract.CurrentPermissionState.PermissionsDenied -> Unit
+                        is CurrentContract.CurrentPermissionState.Idle -> Unit
+                        is CurrentContract.CurrentPermissionState.PermissionsGranted -> {
+                            currentLocationLiveData.observe(viewLifecycleOwner) { location ->
+                                Log.d("DEBUG_TAG", location.toString())
+                            }
+                        }
+                        is CurrentContract.CurrentPermissionState.PermissionsDenied -> {
+                            currentLocationLiveData.removeObservers(viewLifecycleOwner)
+                        }
                         is CurrentContract.CurrentPermissionState.PermissionsPermanentlyDenied -> {
+                            currentLocationLiveData.removeObservers(viewLifecycleOwner)
                             if (savedInstanceState == null)
                                 viewModel?.setEffect(CurrentContract.Effect.ShowPermissionsRequiredDialog)
                         }

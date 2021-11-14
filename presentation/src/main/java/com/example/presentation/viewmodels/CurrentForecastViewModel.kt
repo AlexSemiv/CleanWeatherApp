@@ -1,16 +1,19 @@
 package com.example.presentation.viewmodels
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
 import com.example.common.base.BaseViewModel
 import com.example.common.other.Mapper
 import com.example.common.other.Resource
 import com.example.common.other.UseCase
 import com.example.domain.models.current.CurrentForecastDomainModel
-import com.example.domain.qualifiers.ApplicationScope
 import com.example.domain.usecases.current.CurrentForecastNetworkUseCaseArgument
 import com.example.presentation.contracts.CurrentContract
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -52,21 +55,28 @@ class CurrentForecastViewModel @Inject constructor(
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun fetchCurrentForecastNetwork() {
         viewModelScope.launch {
-
-            // TODO: 11.11.2021 task extensions 
-            // val location = locationProviderClient.lastLocation
-            
+            val location = locationProviderClient.lastLocation
+                .asDeferredAsync()
+                .await()
             currentForecastNetworkUseCase.execute(
                 argument = CurrentForecastNetworkUseCaseArgument(
-                    latitude = 50.9,
-                    longitude = 55.1
+                    latitude = location?.latitude,
+                    longitude = location?.longitude
                 )
             ).collect {
                 handleDataEvents(it)
             }
         }
+    }
+
+    private fun <T> Task<T>.asDeferredAsync(): Deferred<T> {
+        val deferred = CompletableDeferred<T>()
+        addOnSuccessListener { result -> deferred.complete(result) }
+        addOnFailureListener { ex -> deferred.completeExceptionally(ex) }
+        return deferred
     }
 
     private fun handleDataEvents(resource: Resource<CurrentForecastDomainModel>) {
