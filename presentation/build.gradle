@@ -52,6 +52,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
+    def locationVersion = "18.0.0"
+    implementation "com.google.android.gms:play-services-location:$locationVersion"
+
     def coroutinesScopeVersion = "2.4.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$coroutinesScopeVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$coroutinesScopeVersion"

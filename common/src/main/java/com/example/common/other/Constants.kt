@@ -1,5 +1,9 @@
 package com.example.common.other
 
+import com.example.common.other.Constants.toFormattedHoursAndMinutes
+import java.text.SimpleDateFormat
+import java.util.*
+
 object Constants {
     var DEGREE = "°"
     private const val CELSIUS = "C"
@@ -30,4 +34,29 @@ object Constants {
     const val KEY_UNITS = "units"
     const val UNITS_DEFAULT_VALUE = "metric"
     const val KEY_FORECAST = "current_forecast"
+
+
+    fun String.toFormattedTitle() = substringBefore(delimiter = "/")
+
+    fun String.toFormattedDescription() = try {
+        getOrNull(0)?.uppercaseChar()?.plus(substring(1))
+    } catch (e: Exception) {
+        "Description"
+    }
+
+    fun Int.toFormattedHoursAndMinutes(): String = try {
+        val sdf = SimpleDateFormat("h:mm a", Locale("en", "EN"))
+        val netDate = Date((this).toLong() * 1000)
+        sdf.format(netDate) ?: "00:00 PM"
+    } catch (e: Exception) {
+        "00:00 AM"
+    }
+
+    fun Int.toFormattedDate(): String = try {
+        val sdf = SimpleDateFormat("EEEE, d MMM", Locale("en", "EN"))
+        val netDate = Date((this).toLong() * 1000)
+        sdf.format(netDate) ?: "Friday, 10 January"
+    } catch (e: Exception) {
+        "Friday, 10 January"
+    }
 }

@@ -1,118 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    style="@style/LinearLayoutStyle"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
-        <variable
-            name="current"
-            type="com.example.presentation.models.current.Current" />
-    </data>
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_temp_and_feels_like"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="12.02.2001" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        style="@style/LinearLayoutStyle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_temp_and_feels_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_dev_point"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date"
+        tools:text="12° (feels like 10°)" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_temp_and_feels_like"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:textSetDate="@{current.dt}"
-            tools:text="12.02.2001" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_dev_point"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_uvi"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_temp_and_feels_like"
+        tools:text="tv_dev_point" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_temp_and_feels_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:dialogTextSetTemp="@{current.temp}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_dev_point"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_date"
-            tools:text="12° (feels like 10°)" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_uvi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_clouds"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_dev_point"
+        tools:text="tv_uvi" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_dev_point"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/tv_uvi"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_temp_and_feels_like"
-            app:dialogTextSetDevPoint="@{current.dew_point}"
-            tools:text="tv_dev_point" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_clouds"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_visibility"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_uvi"
+        tools:text="tv_clouds" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_uvi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{`Uvi: `+String.valueOf(current.uvi)}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_clouds"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_dev_point"
-            tools:text="tv_uvi" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_visibility"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_wind_speed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_clouds"
+        tools:text="tv_visibility" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_clouds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{`Clouds: `+String.valueOf(current.clouds)}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_visibility"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_uvi"
-            tools:text="tv_clouds" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_wind_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_wind_deg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_visibility"
+        tools:text="tv_wind_speed" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_visibility"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{`Visibility: `+String.valueOf(current.visibility)+`m`}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_wind_speed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_clouds"
-            tools:text="tv_visibility" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_wind_deg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/tv_wind_gust"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_wind_speed"
+        tools:text="tv_wind_deg" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_wind_speed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:dialogTextSetWindSpeed="@{current.wind_speed}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_wind_deg"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_visibility"
-            tools:text="tv_wind_speed" />
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_wind_gust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_wind_deg"
+        tools:text="tv_wind_gust" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_wind_deg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{`Wind deg: `+String.valueOf(current.wind_deg)}"
-            app:layout_constraintBottom_toTopOf="@+id/tv_wind_gust"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_wind_speed"
-            tools:text="tv_wind_deg" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tv_wind_gust"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{`Wind gust: `+String.valueOf(current.wind_gust)}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_wind_deg"
-            tools:text="tv_wind_gust" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>

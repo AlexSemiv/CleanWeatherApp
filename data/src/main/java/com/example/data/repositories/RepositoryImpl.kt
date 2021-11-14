@@ -45,4 +45,15 @@ class RepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getCurrentForecastLocal(): Flow<Resource<CurrentForecastDomainModel>> {
+        return flow {
+            try {
+                val localDataForecast = localDataSource.getLastSavedCurrentForecastData()
+                emit(Resource.Success(data = mapper.from(localDataForecast)))
+            } catch (e1: Exception) {
+                emit(Resource.Error(message = e1.message ?: ":("))
+            }
+        }
+    }
 }

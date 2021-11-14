@@ -10,4 +10,8 @@ interface Repository {
         latitude: Double,
         longitude: Double
     ): Flow<Resource<CurrentForecastDomainModel>>
+
+    suspend fun getCurrentForecastLocal(
+
+    ): Flow<Resource<CurrentForecastDomainModel>>
 }

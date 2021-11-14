@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainForecastFragment_to_itemDialogFragment"
             app:destination="@id/itemDialogFragment" />
+        <action
+            android:id="@+id/action_mainForecastFragment_to_permissionDialog"
+            app:destination="@id/permissionDialog" />
     </fragment>
     <fragment
         android:id="@+id/searchForecastFragment"
@@ -52,4 +55,8 @@
             app:argType="com.example.presentation.models.current.Daily"
             app:nullable="true" />
     </dialog>
+    <dialog
+        android:id="@+id/permissionDialog"
+        android:name="com.example.cleanweatherapp.ui.error.PermissionDialog"
+        android:label="PermissionDialog" />
 </navigation>

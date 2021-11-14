@@ -27,7 +27,7 @@ class GetCurrentForecastNetworkUseCase @Inject constructor(
                 emit(Resource.Error(message = "Argument in useCase is null"))
             }
         } catch (e: Exception) {
-            return flow { Resource.Empty }
+            return flow { emit(Resource.Error(message = e.message ?: ":(")) }
         }
     }
 }

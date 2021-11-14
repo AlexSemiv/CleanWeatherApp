@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CleanWeatherApp</string>
+    <string name="title_permissions_dialog">Permissions permanently denied</string>
+    <string name="message_permissions_dialog">Without this permissions you can\'t use whole app functionality. Go to settings and enable the required permissions. After you can to relaunch app.</string>
+    <string name="positive_permissions_dialog">Go to Settings</string>
+    <string name="error_permissions_dialog">Something goes wrong. Try to relaunch app.</string>
+    <string name="negative_permissions_dialog">Cancel</string>
+    <string name="title_detail_dialog">Now</string>
+    <string name="positive_detail_dialog">OK</string>
+    <string name="title_item_dialog">Weather forecast</string>
+    <string name="positive_item_dialog">OK</string>
 </resources>
