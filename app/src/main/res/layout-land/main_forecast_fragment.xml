@@ -33,66 +33,69 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/ImageViewWindSpeed"
+                style="@style/StaticSmallImageView"
+                android:src="@drawable/ic_wind"
+                app:layout_constraintEnd_toStartOf="@+id/rvDaily"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ImageViewHumidity"
+                app:layout_constraintTop_toTopOf="@+id/ImageViewHumidity" />
+
+            <ImageView
                 android:id="@+id/ImageViewPressure"
-                style="@style/StaticBigImageView"
+                style="@style/StaticSmallImageView"
                 android:src="@drawable/ic_barometer"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ImageViewHumidity"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_humidity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="0%"
-                app:layout_constraintEnd_toEndOf="@+id/ImageViewHumidity"
-                app:layout_constraintStart_toStartOf="@+id/ImageViewHumidity"
-                app:layout_constraintTop_toBottomOf="@+id/ImageViewHumidity" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
 
             <ImageView
                 android:id="@+id/ImageViewHumidity"
-                style="@style/StaticBigImageView"
+                style="@style/StaticSmallImageView"
                 android:src="@drawable/ic_humidity"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
                 app:layout_constraintEnd_toStartOf="@+id/ImageViewWindSpeed"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/ImageViewPressure"
-                app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
+                app:layout_constraintTop_toTopOf="@+id/ImageViewPressure" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_pressure"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="0mBar"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/ImageViewPressure"
                 app:layout_constraintStart_toStartOf="@+id/ImageViewPressure"
-                app:layout_constraintTop_toBottomOf="@+id/ImageViewPressure" />
-
-            <ImageView
-                android:id="@+id/ImageViewWindSpeed"
-                style="@style/StaticBigImageView"
-                android:src="@drawable/ic_wind"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineOther"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/ImageViewHumidity"
-                app:layout_constraintTop_toTopOf="@+id/guidelineOther" />
+                app:layout_constraintTop_toBottomOf="@+id/ImageViewPressure"
+                tools:text="0mBar" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_wind_speed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="@+id/ImageViewWindSpeed"
                 app:layout_constraintStart_toStartOf="@+id/ImageViewWindSpeed"
                 app:layout_constraintTop_toBottomOf="@+id/ImageViewWindSpeed"
                 tools:text="0.0m/sec" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_humidity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/ImageViewHumidity"
+                app:layout_constraintHorizontal_bias="0.521"
+                app:layout_constraintStart_toStartOf="@+id/ImageViewHumidity"
+                app:layout_constraintTop_toBottomOf="@+id/ImageViewHumidity"
+                tools:text="0%" />
+
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/tv_temp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_temp"
                 app:layout_constraintStart_toStartOf="@+id/tv_temp"
@@ -111,48 +114,12 @@
                 android:id="@+id/tv_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:textSize="96sp"
-                app:layout_constraintBottom_toTopOf="@+id/guidelineMain"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="60sp"
+                app:layout_constraintBottom_toTopOf="@+id/ImageViewPressure"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineOther"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainFragmentProgressIndicator"
                 tools:text="15°" />
-
-            <ImageView
-                android:id="@+id/ImageViewSunset"
-                style="@style/StaticBigImageView"
-                android:layout_marginEnd="8dp"
-                android:src="@drawable/ic_sunset"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_sunset"
-                app:layout_constraintEnd_toStartOf="@+id/tv_sunset" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_sunset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guidelineMain"
-                tools:text="21:00 PM" />
-
-            <ImageView
-                android:id="@+id/ImageViewSunrise"
-                style="@style/StaticBigImageView"
-                android:layout_marginStart="8dp"
-                android:src="@drawable/ic_sunrise"
-                app:layout_constraintStart_toEndOf="@+id/tv_sunrise"
-                app:layout_constraintTop_toTopOf="@+id/tv_sunrise" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/tv_sunrise"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guidelineMain"
-                tools:text="10:00 AM" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
                 android:id="@+id/mainFragmentProgressIndicator"
@@ -163,36 +130,21 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineChart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.62" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineMain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.5" />
-
-            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineOther"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.1" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.4" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvDaily"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guidelineChart" />
+                app:layout_constraintStart_toStartOf="@+id/guidelineOther"
+                app:layout_constraintTop_toBottomOf="@+id/mainFragmentProgressIndicator" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

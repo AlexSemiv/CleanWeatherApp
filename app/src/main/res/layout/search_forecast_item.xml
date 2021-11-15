@@ -26,7 +26,7 @@
 
     <ImageView
         android:id="@+id/searchItemIcon"
-        style="@style/StaticImageView"
+        style="@style/StaticBigImageView"
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toStartOf="@+id/ImageViewPressure"
         app:layout_constraintHorizontal_bias="0.5"
@@ -47,7 +47,7 @@
 
     <ImageView
         android:id="@+id/ImageViewPressure"
-        style="@style/StaticImageView"
+        style="@style/StaticBigImageView"
         android:src="@drawable/ic_barometer"
         app:layout_constraintBottom_toBottomOf="@+id/searchItemIcon"
         app:layout_constraintEnd_toStartOf="@+id/imageHumidity"
@@ -67,7 +67,7 @@
 
     <ImageView
         android:id="@+id/imageHumidity"
-        style="@style/StaticImageView"
+        style="@style/StaticBigImageView"
         android:src="@drawable/ic_humidity"
         app:layout_constraintBottom_toBottomOf="@+id/ImageViewPressure"
         app:layout_constraintEnd_toStartOf="@+id/imageWindSpeed"
@@ -87,7 +87,7 @@
 
     <ImageView
         android:id="@+id/imageWindSpeed"
-        style="@style/StaticImageView"
+        style="@style/StaticBigImageView"
         android:src="@drawable/ic_wind"
         app:layout_constraintBottom_toBottomOf="@+id/imageHumidity"
         app:layout_constraintEnd_toEndOf="parent"

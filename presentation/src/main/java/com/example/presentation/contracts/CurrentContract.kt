@@ -29,6 +29,7 @@ class CurrentContract {
         object Idle : CurrentForecastState()
         data class Loading(val cashedForecast: CurrentForecastUiModel?) : CurrentForecastState()
         data class Success(val forecast: CurrentForecastUiModel) : CurrentForecastState()
+        data class Error(val cashedForecast: CurrentForecastUiModel? = null) : CurrentForecastState()
     }
 
     sealed class CurrentPermissionState {

@@ -12,7 +12,8 @@ import dagger.Component
     modules = [
         NetworkModule::class,
         LocalModule::class,
-        LocationModule::class
+        LocationModule::class,
+        ConnectionModule::class
     ]
 )
 interface ApplicationComponent {

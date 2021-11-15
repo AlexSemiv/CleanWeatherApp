@@ -9,4 +9,5 @@
     <string name="positive_detail_dialog">OK</string>
     <string name="title_item_dialog">Weather forecast</string>
     <string name="positive_item_dialog">OK</string>
+    <string name="permissions_denied_error_message">Without permissions app can\'t show current forecast.</string>
 </resources>

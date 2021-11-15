@@ -25,6 +25,7 @@ import com.example.common.other.Constants.toFormattedHoursAndMinutes
 import com.example.common.other.Constants.toFormattedTitle
 import com.example.presentation.contracts.CurrentContract
 import com.example.presentation.livedata.CurrentLocationLiveData
+import com.example.presentation.livedata.InternetConnectionLiveData
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.presentation.viewmodels.CurrentForecastViewModel
 import com.example.presentation.viewmodels.factory.ViewModelFactory
@@ -63,6 +64,13 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this, factory)[CurrentForecastViewModel::class.java]
+
+        viewModel?.internetConnectionLiveData?.observe(viewLifecycleOwner) { hasConnection ->
+            if(hasConnection)
+                binding.toolbar.navigationIcon = null
+            else
+                binding.toolbar.setNavigationIcon(R.drawable.ic_wifi_off)
+        }
 
         subscribeObservers()
 
@@ -150,12 +158,14 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                         newState = CurrentContract.CurrentPermissionState.PermissionsPermanentlyDenied
                     )
                 )
-            } else
+            } else {
+                viewModel?.setEffect(CurrentContract.Effect.ShowError(message = getString(R.string.permissions_denied_error_message)))
                 viewModel?.setEvent(
                     CurrentContract.Event.OnChangePermissionsState(
                         newState = CurrentContract.CurrentPermissionState.PermissionsDenied
                     )
                 )
+            }
         }
     }
 
@@ -200,6 +210,12 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                             inflateData(forecast)
                             binding.mainFragmentProgressIndicator.isVisible = false
                         }
+                        is CurrentContract.CurrentForecastState.Error -> {
+                            val cashedForecast = dataState.cashedForecast
+                            dailyAdapter.submitList(cashedForecast?.daily)
+                            inflateData(cashedForecast)
+                            binding.mainFragmentProgressIndicator.isVisible = false
+                        }
                     }
                 }
             }
@@ -212,13 +228,15 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                         is CurrentContract.Effect.ShowError -> {
                             binding.btnShowInfoDialog.setOnClickListener(null)
                             binding.mainFragmentProgressIndicator.isVisible = false
-                            val errorView = Snackbar.make(
+                            Snackbar.make(
                                 requireView(),
                                 it.message ?: "Unknown error",
                                 Snackbar.LENGTH_LONG
-                            )
-                            errorView.setAction("OK") {
-                                errorView.dismiss()
+                            ).apply {
+                                anchorView = (activity as MainActivity).binding.bottomNavigationView
+                                setAction("OK") {
+                                    this.dismiss()
+                                }
                             }.show()
                         }
                         is CurrentContract.Effect.ShowMoreInfoCurrentDialog -> {
@@ -268,8 +286,8 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
         }
         (forecast.current?.temp?.toInt()
             .toString() + Constants.UNITS_OF_MEASUREMENT_TEMP).also { tvTemp.text = it }
-        (forecast.current?.sunrise?.toFormattedHoursAndMinutes()).also { tvSunrise.text = it }
-        (forecast.current?.sunset?.toFormattedHoursAndMinutes()).also { tvSunset.text = it }
+        (forecast.current?.sunrise?.toFormattedHoursAndMinutes()).also { tvSunrise?.text = it }
+        (forecast.current?.sunset?.toFormattedHoursAndMinutes()).also { tvSunset?.text = it }
 
         btnShowInfoDialog.setOnClickListener {
             viewModel?.setEffect(

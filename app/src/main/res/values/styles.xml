@@ -73,9 +73,14 @@
         <item name="fontFamily">@font/tahoma_bold</item>
     </style>
 
-    <style name="StaticImageView">
+    <style name="StaticBigImageView">
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
+    </style>
+
+    <style name="StaticSmallImageView">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
     </style>
 
     <style name="LinearProgressIndicator" parent="Widget.MaterialComponents.LinearProgressIndicator">

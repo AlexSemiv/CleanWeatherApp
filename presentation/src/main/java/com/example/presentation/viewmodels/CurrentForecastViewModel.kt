@@ -9,6 +9,7 @@ import com.example.common.other.UseCase
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.usecases.current.CurrentForecastNetworkUseCaseArgument
 import com.example.presentation.contracts.CurrentContract
+import com.example.presentation.livedata.InternetConnectionLiveData
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.tasks.Task
@@ -22,7 +23,8 @@ class CurrentForecastViewModel @Inject constructor(
     private val currentForecastNetworkUseCase: UseCase<CurrentForecastDomainModel, CurrentForecastNetworkUseCaseArgument>,
     private val currentForecastLocalUseCase: UseCase<CurrentForecastDomainModel, Nothing>,
     private val mapper: Mapper<CurrentForecastDomainModel, CurrentForecastUiModel>,
-    private val locationProviderClient: FusedLocationProviderClient
+    private val locationProviderClient: FusedLocationProviderClient,
+    val internetConnectionLiveData: InternetConnectionLiveData
 ) : BaseViewModel<CurrentContract.Event, CurrentContract.State, CurrentContract.Effect>() {
 
     override fun createInitialUiState(): CurrentContract.State {
@@ -105,7 +107,17 @@ class CurrentForecastViewModel @Inject constructor(
                 }
             }
             is Resource.Error -> {
-                setEffect(CurrentContract.Effect.ShowError(message = resource.message))
+                val data = mapper.from(resource.data)
+                setState {
+                    copy(
+                        currentForecastState = CurrentContract.CurrentForecastState.Error(
+                            cashedForecast = data
+                        )
+                    )
+                }
+                setEffect(
+                    CurrentContract.Effect.ShowError(message = resource.message)
+                )
             }
         }
     }
