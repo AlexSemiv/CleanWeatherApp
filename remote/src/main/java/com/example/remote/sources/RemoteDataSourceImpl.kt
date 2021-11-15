@@ -2,15 +2,18 @@ package com.example.remote.sources
 
 import com.example.common.other.Mapper
 import com.example.data.models.current.CurrentForecastDataModel
+import com.example.data.models.search.SearchForecastDataModel
 import com.example.remote.api.OpenWeatherApi
 import com.example.remote.models.current.CurrentForecastNetworkModel
 import com.example.data.repositories.RemoteDataSource
+import com.example.remote.models.search.SearchForecastNetworkModel
 import com.example.remote.other.SafeApiRequest
 import javax.inject.Inject
 
 class RemoteDataSourceImpl @Inject constructor(
     private val api: OpenWeatherApi,
-    private val mapper: Mapper<CurrentForecastNetworkModel, CurrentForecastDataModel>
+    private val currentMapper: Mapper<CurrentForecastNetworkModel, CurrentForecastDataModel>,
+    private val searchMapper: Mapper<SearchForecastNetworkModel, SearchForecastDataModel>
 ): RemoteDataSource {
 
     override suspend fun getCurrentForecast(
@@ -25,6 +28,19 @@ class RemoteDataSourceImpl @Inject constructor(
                 units = units
             )
         }
-        return mapper.from(networkCurrentForecast)
+        return currentMapper.from(networkCurrentForecast)
+    }
+
+    override suspend fun getForecastByQuery(
+        query: String,
+        units: String
+    ): SearchForecastDataModel {
+        val networkForecastByQuery = SafeApiRequest.handleApiRequest {
+            api.searchForecastByQuery(
+                query = query,
+                units = units
+            )
+        }
+        return searchMapper.from(networkForecastByQuery)
     }
 }

@@ -3,6 +3,7 @@ package com.example.cleanweatherapp.di.modules
 import com.example.common.other.Mapper
 import com.example.data.mappers.CurrentForecastDataDomainMapper
 import com.example.data.models.current.CurrentForecastDataModel
+import com.example.data.models.search.SearchForecastDataModel
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.qualifiers.ActivityScope
 import com.example.local.mapper.CurrentForecastLocalDataMapper
@@ -10,7 +11,9 @@ import com.example.local.model.current.CurrentForecastLocalModel
 import com.example.presentation.mappers.CurrentForecastDomainUiMapper
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.remote.mappers.CurrentForecastNetworkDataMapper
+import com.example.remote.mappers.SearchForecastNetworkDataMapper
 import com.example.remote.models.current.CurrentForecastNetworkModel
+import com.example.remote.models.search.SearchForecastNetworkModel
 import dagger.Binds
 import dagger.Module
 
@@ -40,4 +43,12 @@ abstract class MapperModule {
     abstract fun bindsCurrentForecastLocalDataMapper(
         mapper: CurrentForecastLocalDataMapper
     ): Mapper<CurrentForecastLocalModel, CurrentForecastDataModel>
+
+    // search
+
+    @ActivityScope
+    @Binds
+    abstract fun bindsMapperSearchForecastNetworkData(
+        mapper: SearchForecastNetworkDataMapper
+    ): Mapper<SearchForecastNetworkModel, SearchForecastDataModel>
 }
