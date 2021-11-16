@@ -26,7 +26,7 @@ class SettingsFragment: BaseFragment<SettingsFragmentBinding>() {
             .replace(R.id.settingsPlaceHolder, SettingsPreference())
             .commit()
 
-        binding.searchFragmentToolbar.setNavigationOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             if (findNavController().previousBackStackEntry != null)
                 findNavController().popBackStack()
         }

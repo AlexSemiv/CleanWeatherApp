@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.SearchForecastFragmentBinding
 import com.example.cleanweatherapp.ui.MainActivity
+import com.example.presentation.viewmodels.SearchForecastViewModel
 import com.example.presentation.viewmodels.factory.ViewModelFactory
 import javax.inject.Inject
 
@@ -19,6 +21,8 @@ class SearchForecastFragment: BaseFragment<SearchForecastFragmentBinding>() {
 
     @Inject
     lateinit var factory: ViewModelFactory
+
+    private var viewModel: SearchForecastViewModel? = null
 
     override fun bindLayout(
         inflater: LayoutInflater,
@@ -36,9 +40,19 @@ class SearchForecastFragment: BaseFragment<SearchForecastFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(this, factory)[SearchForecastViewModel::class.java]
+
+        viewModel?.internetConnectionLiveData?.observe(viewLifecycleOwner) { hasConnection ->
+            if(hasConnection)
+                binding.toolbar.navigationIcon = null
+            else
+                binding.toolbar.setNavigationIcon(R.drawable.ic_wifi_off)
+        }
+
         prepareSearchView()
 
-        binding.searchFragmentToolbar.setOnMenuItemClickListener { menuItem ->
+
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when(menuItem.itemId) {
                 R.id.searchMenuSettings -> {
                     findNavController().navigate(
@@ -52,7 +66,7 @@ class SearchForecastFragment: BaseFragment<SearchForecastFragmentBinding>() {
     }
 
     private fun prepareSearchView() {
-        val menuItem = binding.searchFragmentToolbar.menu.findItem(R.id.searchMenuSearchForecast)
+        val menuItem = binding.toolbar.menu.findItem(R.id.searchMenuSearchForecast)
         val searchView = menuItem.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean = false

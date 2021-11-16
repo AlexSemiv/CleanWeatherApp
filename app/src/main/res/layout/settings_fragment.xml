@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/searchFragmentToolbar"
+            android:id="@+id/toolbar"
             app:title="Settings"
             app:titleCentered="false"
             android:layout_width="match_parent"

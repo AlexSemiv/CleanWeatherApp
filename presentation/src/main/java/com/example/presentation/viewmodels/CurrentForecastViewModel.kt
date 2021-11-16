@@ -52,7 +52,7 @@ class CurrentForecastViewModel @Inject constructor(
         viewModelScope.launch {
             currentForecastLocalUseCase.execute(null)
                 .collect {
-                    handleDataEvents(it)
+                    handleData(it)
                 }
         }
     }
@@ -69,7 +69,7 @@ class CurrentForecastViewModel @Inject constructor(
                     longitude = location?.longitude
                 )
             ).collect {
-                handleDataEvents(it)
+                handleData(it)
             }
         }
     }
@@ -81,7 +81,7 @@ class CurrentForecastViewModel @Inject constructor(
         return deferred
     }
 
-    private fun handleDataEvents(resource: Resource<CurrentForecastDomainModel>) {
+    private fun handleData(resource: Resource<CurrentForecastDomainModel>) {
         when (resource) {
             is Resource.Loading -> {
                 val data = mapper.from(resource.data)
