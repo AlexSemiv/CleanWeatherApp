@@ -1,5 +1,6 @@
 package com.example.cleanweatherapp.ui.search
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,8 +11,14 @@ import androidx.navigation.fragment.findNavController
 import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.SearchForecastFragmentBinding
+import com.example.cleanweatherapp.ui.MainActivity
+import com.example.presentation.viewmodels.factory.ViewModelFactory
+import javax.inject.Inject
 
 class SearchForecastFragment: BaseFragment<SearchForecastFragmentBinding>() {
+
+    @Inject
+    lateinit var factory: ViewModelFactory
 
     override fun bindLayout(
         inflater: LayoutInflater,
@@ -19,6 +26,11 @@ class SearchForecastFragment: BaseFragment<SearchForecastFragmentBinding>() {
         attachToRoot: Boolean
     ): SearchForecastFragmentBinding {
         return SearchForecastFragmentBinding.inflate(inflater, viewGroup, attachToRoot)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as MainActivity).activitySubComponent?.injectSearchForecastFragment(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

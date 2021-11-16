@@ -4,12 +4,15 @@ import androidx.lifecycle.ViewModel
 import com.example.common.other.Mapper
 import com.example.common.other.UseCase
 import com.example.domain.models.current.CurrentForecastDomainModel
+import com.example.domain.models.search.SearchForecastDomainModel
 import com.example.domain.qualifiers.ViewModelKey
 import com.example.domain.usecases.current.CurrentForecastNetworkUseCaseArgument
+import com.example.domain.usecases.search.SearchForecastNetworkUseCaseArgument
 import com.example.presentation.livedata.InternetConnectionLiveData
 import com.example.presentation.models.current.CurrentForecastUiModel
+import com.example.presentation.models.search.SearchForecastUiModel
 import com.example.presentation.viewmodels.CurrentForecastViewModel
-import com.example.presentation.viewmodels.InternetConnectionViewModel
+import com.example.presentation.viewmodels.SearchForecastViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
 import dagger.Module
 import dagger.Provides
@@ -38,12 +41,16 @@ class ViewModelModule {
     }
 
     @IntoMap
-    @ViewModelKey(value = InternetConnectionViewModel::class)
+    @ViewModelKey(value = SearchForecastViewModel::class)
     @Provides
-    fun provideInternetConnectionViewModel(
+    fun provideSearchForecastViewModel(
+        searchUseCase: UseCase<SearchForecastDomainModel, SearchForecastNetworkUseCaseArgument>,
+        mapper: Mapper<SearchForecastDomainModel, SearchForecastUiModel>,
         internetConnectionLiveData: InternetConnectionLiveData
-    ) : ViewModel {
-        return InternetConnectionViewModel(
+    ): ViewModel {
+        return SearchForecastViewModel(
+            searchForecastNetworkUseCase = searchUseCase,
+            mapper = mapper,
             internetConnectionLiveData = internetConnectionLiveData
         )
     }

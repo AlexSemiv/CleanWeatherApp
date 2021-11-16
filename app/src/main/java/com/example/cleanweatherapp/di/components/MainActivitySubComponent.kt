@@ -2,6 +2,7 @@ package com.example.cleanweatherapp.di.components
 
 import com.example.cleanweatherapp.di.modules.*
 import com.example.cleanweatherapp.ui.main.MainForecastFragment
+import com.example.cleanweatherapp.ui.search.SearchForecastFragment
 import com.example.domain.qualifiers.ActivityScope
 import dagger.Subcomponent
 
@@ -18,4 +19,5 @@ import dagger.Subcomponent
 interface MainActivitySubComponent {
 
     fun injectCurrentForecastFragment(fragment: MainForecastFragment)
+    fun injectSearchForecastFragment(fragment: SearchForecastFragment)
 }

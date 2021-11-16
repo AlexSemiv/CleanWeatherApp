@@ -11,7 +11,9 @@ import com.example.domain.qualifiers.ActivityScope
 import com.example.local.mapper.CurrentForecastLocalDataMapper
 import com.example.local.model.current.CurrentForecastLocalModel
 import com.example.presentation.mappers.CurrentForecastDomainUiMapper
+import com.example.presentation.mappers.SearchForecastDomainUiModel
 import com.example.presentation.models.current.CurrentForecastUiModel
+import com.example.presentation.models.search.SearchForecastUiModel
 import com.example.remote.mappers.CurrentForecastNetworkDataMapper
 import com.example.remote.mappers.SearchForecastNetworkDataMapper
 import com.example.remote.models.current.CurrentForecastNetworkModel
@@ -59,4 +61,10 @@ abstract class MapperModule {
     abstract fun bindsMapperSearchForecastDataDomain(
         mapper: SearchForecastDataDomainMapper
     ): Mapper<SearchForecastDataModel, SearchForecastDomainModel>
+
+    @ActivityScope
+    @Binds
+    abstract fun bindsMapperSearchForecastDomainUi(
+        mapper: SearchForecastDomainUiModel
+    ): Mapper<SearchForecastDomainModel, SearchForecastUiModel>
 }
