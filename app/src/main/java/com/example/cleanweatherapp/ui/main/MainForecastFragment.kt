@@ -42,9 +42,6 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
     @Inject
     lateinit var dailyAdapter: DailyAdapter
 
-    @Inject
-    lateinit var currentLocationLiveData: CurrentLocationLiveData
-
     private var viewModel: CurrentForecastViewModel? = null
 
     override fun bindLayout(
@@ -182,15 +179,15 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                     when (it.currentPermissionsState) {
                         is CurrentContract.CurrentPermissionState.Idle -> Unit
                         is CurrentContract.CurrentPermissionState.PermissionsGranted -> {
-                            currentLocationLiveData.observe(viewLifecycleOwner) { location ->
+                            viewModel?.currentLocationLiveData?.observe(viewLifecycleOwner) { location ->
                                 Log.d("DEBUG_TAG", location.toString())
                             }
                         }
                         is CurrentContract.CurrentPermissionState.PermissionsDenied -> {
-                            currentLocationLiveData.removeObservers(viewLifecycleOwner)
+                            viewModel?.currentLocationLiveData?.removeObservers(viewLifecycleOwner)
                         }
                         is CurrentContract.CurrentPermissionState.PermissionsPermanentlyDenied -> {
-                            currentLocationLiveData.removeObservers(viewLifecycleOwner)
+                            viewModel?.currentLocationLiveData?.removeObservers(viewLifecycleOwner)
                         }
                     }
 

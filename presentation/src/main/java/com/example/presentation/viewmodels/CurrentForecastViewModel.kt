@@ -9,6 +9,7 @@ import com.example.common.other.UseCase
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.usecases.current.CurrentForecastNetworkUseCaseArgument
 import com.example.presentation.contracts.CurrentContract
+import com.example.presentation.livedata.CurrentLocationLiveData
 import com.example.presentation.livedata.InternetConnectionLiveData
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -24,7 +25,8 @@ class CurrentForecastViewModel @Inject constructor(
     private val currentForecastLocalUseCase: UseCase<CurrentForecastDomainModel, Nothing>,
     private val mapper: Mapper<CurrentForecastDomainModel, CurrentForecastUiModel>,
     private val locationProviderClient: FusedLocationProviderClient,
-    val internetConnectionLiveData: InternetConnectionLiveData
+    val internetConnectionLiveData: InternetConnectionLiveData,
+    val currentLocationLiveData: CurrentLocationLiveData
 ) : BaseViewModel<CurrentContract.Event, CurrentContract.State, CurrentContract.Effect>() {
 
     override fun createInitialUiState(): CurrentContract.State {

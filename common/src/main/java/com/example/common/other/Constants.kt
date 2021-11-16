@@ -62,4 +62,6 @@ object Constants {
 
     const val LOCATION_REQUEST_INTERVAL = 30 * 1000L
     const val FASTEST_LOCATION_INTERVAL = 10 * 1000L
+
+    const val TIMEOUT_SEARCHING = 1000L
 }

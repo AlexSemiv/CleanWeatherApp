@@ -11,7 +11,6 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import javax.inject.Inject
 
-@ActivityScope
 class CurrentLocationLiveData @Inject constructor(
     private val fusedLocationProviderClient: FusedLocationProviderClient,
     private val locationRequest: LocationRequest

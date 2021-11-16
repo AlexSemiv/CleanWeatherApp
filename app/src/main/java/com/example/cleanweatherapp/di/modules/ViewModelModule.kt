@@ -8,6 +8,7 @@ import com.example.domain.models.search.SearchForecastDomainModel
 import com.example.domain.qualifiers.ViewModelKey
 import com.example.domain.usecases.current.CurrentForecastNetworkUseCaseArgument
 import com.example.domain.usecases.search.SearchForecastNetworkUseCaseArgument
+import com.example.presentation.livedata.CurrentLocationLiveData
 import com.example.presentation.livedata.InternetConnectionLiveData
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.presentation.models.search.SearchForecastUiModel
@@ -29,14 +30,16 @@ class ViewModelModule {
         localUseCase: UseCase<CurrentForecastDomainModel, Nothing>,
         mapper: Mapper<CurrentForecastDomainModel, CurrentForecastUiModel>,
         locationProviderClient: FusedLocationProviderClient,
-        internetConnectionLiveData: InternetConnectionLiveData
+        internetConnectionLiveData: InternetConnectionLiveData,
+        locationLiveData: CurrentLocationLiveData
     ): ViewModel {
         return CurrentForecastViewModel(
             currentForecastNetworkUseCase = networkUseCase,
             currentForecastLocalUseCase = localUseCase,
             mapper = mapper,
             locationProviderClient = locationProviderClient,
-            internetConnectionLiveData = internetConnectionLiveData
+            internetConnectionLiveData = internetConnectionLiveData,
+            currentLocationLiveData = locationLiveData
         )
     }
 

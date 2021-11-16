@@ -1,6 +1,5 @@
 package com.example.presentation.viewmodels
 
-import android.content.res.Resources
 import androidx.lifecycle.viewModelScope
 import com.example.common.base.BaseViewModel
 import com.example.common.other.Mapper
