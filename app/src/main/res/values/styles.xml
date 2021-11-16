@@ -42,6 +42,14 @@
         <item name="imageButtonStyle">@style/ImageButtonStyle</item>
     </style>
 
+    <style name="LottieStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="lottie_autoPlay">true</item>
+        <item name="lottie_loop">true</item>
+        <item name="lottie_repeatMode">restart</item>
+    </style>
+
     <style name="ImageButtonStyle" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">@color/md_blue_700</item>
     </style>

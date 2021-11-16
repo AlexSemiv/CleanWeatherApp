@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="250dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/searchItemDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,20 +19,21 @@
         android:id="@+id/searchItemDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="@+id/searchItemDate"
-        app:layout_constraintTop_toBottomOf="@+id/searchItemDate"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="Scattered clouds." />
 
-    <ImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/searchItemIcon"
-        style="@style/StaticBigImageView"
-        android:layout_marginTop="32dp"
+        style="@style/LottieStyle"
+        android:src="@drawable/ic_thermostat"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ImageViewPressure"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchItemDescription"
-        android:src="@drawable/ic_thermostat" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/searchItemTemp"
@@ -49,10 +50,10 @@
         android:id="@+id/ImageViewPressure"
         style="@style/StaticBigImageView"
         android:src="@drawable/ic_barometer"
-        app:layout_constraintBottom_toBottomOf="@+id/searchItemIcon"
         app:layout_constraintEnd_toStartOf="@+id/imageHumidity"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/searchItemIcon" />
+        app:layout_constraintStart_toEndOf="@+id/searchItemIcon"
+        app:layout_constraintTop_toTopOf="@+id/searchItemIcon" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/searchItemPressure"
@@ -69,10 +70,10 @@
         android:id="@+id/imageHumidity"
         style="@style/StaticBigImageView"
         android:src="@drawable/ic_humidity"
-        app:layout_constraintBottom_toBottomOf="@+id/ImageViewPressure"
         app:layout_constraintEnd_toStartOf="@+id/imageWindSpeed"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/ImageViewPressure" />
+        app:layout_constraintStart_toEndOf="@+id/ImageViewPressure"
+        app:layout_constraintTop_toTopOf="@+id/ImageViewPressure" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/searchItemHumidity"
@@ -89,10 +90,10 @@
         android:id="@+id/imageWindSpeed"
         style="@style/StaticBigImageView"
         android:src="@drawable/ic_wind"
-        app:layout_constraintBottom_toBottomOf="@+id/imageHumidity"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imageHumidity" />
+        app:layout_constraintStart_toEndOf="@+id/imageHumidity"
+        app:layout_constraintTop_toTopOf="@+id/imageHumidity" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/searchItemWindSpeed"
@@ -101,7 +102,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/imageWindSpeed"
-        app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="@+id/imageWindSpeed"
         app:layout_constraintTop_toBottomOf="@+id/imageWindSpeed"
         tools:text="23m/sec" />
