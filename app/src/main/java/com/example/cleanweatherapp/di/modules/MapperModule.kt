@@ -2,9 +2,11 @@ package com.example.cleanweatherapp.di.modules
 
 import com.example.common.other.Mapper
 import com.example.data.mappers.CurrentForecastDataDomainMapper
+import com.example.data.mappers.SearchForecastDataDomainMapper
 import com.example.data.models.current.CurrentForecastDataModel
 import com.example.data.models.search.SearchForecastDataModel
 import com.example.domain.models.current.CurrentForecastDomainModel
+import com.example.domain.models.search.SearchForecastDomainModel
 import com.example.domain.qualifiers.ActivityScope
 import com.example.local.mapper.CurrentForecastLocalDataMapper
 import com.example.local.model.current.CurrentForecastLocalModel
@@ -51,4 +53,10 @@ abstract class MapperModule {
     abstract fun bindsMapperSearchForecastNetworkData(
         mapper: SearchForecastNetworkDataMapper
     ): Mapper<SearchForecastNetworkModel, SearchForecastDataModel>
+
+    @ActivityScope
+    @Binds
+    abstract fun bindsMapperSearchForecastDataDomain(
+        mapper: SearchForecastDataDomainMapper
+    ): Mapper<SearchForecastDataModel, SearchForecastDomainModel>
 }
