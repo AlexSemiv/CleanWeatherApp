@@ -1,11 +1,12 @@
 package com.example.local.mapper
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.data.models.current.*
 import com.example.local.model.current.CurrentForecastLocalModel
 import javax.inject.Inject
 
-class CurrentForecastLocalDataMapper @Inject constructor() : Mapper<CurrentForecastLocalModel, CurrentForecastDataModel> {
+class CurrentForecastLocalDataMapper @Inject constructor() :
+    Mapper<CurrentForecastLocalModel, CurrentForecastDataModel> {
     override fun from(input: CurrentForecastLocalModel?): CurrentForecastDataModel {
         return CurrentForecastDataModel(
             current = Current(

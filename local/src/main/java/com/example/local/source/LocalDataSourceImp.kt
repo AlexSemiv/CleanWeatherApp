@@ -2,7 +2,7 @@ package com.example.local.source
 
 import android.content.SharedPreferences
 import com.example.common.other.Constants
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.data.models.current.CurrentForecastDataModel
 import com.example.data.repositories.LocalDataSource
 import com.example.local.model.current.Current

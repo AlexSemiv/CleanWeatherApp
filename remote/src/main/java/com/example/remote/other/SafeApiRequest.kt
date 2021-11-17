@@ -16,6 +16,7 @@ object SafeApiRequest {
     private const val UNSUCCESS_429 = 429
     private const val UNSUCCESS_422 = 422
     private const val UNSUCCESS_401 = 401
+    private const val UNSUCCESS_404 = 404
     private const val UNSUCCESS_503 = 503
     private const val UNSUCCESS_500 = 500
     private const val UNSUCCESS_504 = 504
@@ -36,6 +37,7 @@ object SafeApiRequest {
                 UNSUCCESS_503 -> throw ServiceOfflineException("Access to your account has been suspended, contact TMDb.")
                 UNSUCCESS_500 -> throw InternalErrorException("Access to your account has been suspended, contact TMDb.")
                 UNSUCCESS_504 -> throw TimeoutRequestException("Your request to the backend server timed out. Try again.")
+                UNSUCCESS_404 -> throw TimeoutRequestException("No results for your query. Try again.")
                 else -> throw IllegalStateException()
             }
         }

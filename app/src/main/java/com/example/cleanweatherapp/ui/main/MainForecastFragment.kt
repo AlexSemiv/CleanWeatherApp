@@ -3,13 +3,11 @@ package com.example.cleanweatherapp.ui.main
 import android.Manifest
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
@@ -19,25 +17,20 @@ import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.MainForecastFragmentBinding
 import com.example.cleanweatherapp.ui.MainActivity
+import com.example.common.extensions.Utils.infoLog
 import com.example.common.other.Constants
 import com.example.common.other.Constants.toFormattedDescription
 import com.example.common.other.Constants.toFormattedHoursAndMinutes
 import com.example.common.other.Constants.toFormattedTitle
 import com.example.presentation.contracts.CurrentContract
-import com.example.presentation.livedata.CurrentLocationLiveData
-import com.example.presentation.livedata.InternetConnectionLiveData
 import com.example.presentation.models.current.CurrentForecastUiModel
 import com.example.presentation.viewmodels.CurrentForecastViewModel
-import com.example.presentation.viewmodels.factory.ViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
-
-    @Inject
-    lateinit var factory: ViewModelFactory
 
     @Inject
     lateinit var dailyAdapter: DailyAdapter
@@ -60,7 +53,7 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this, factory)[CurrentForecastViewModel::class.java]
+        viewModel = (activity as MainActivity).currentForecastViewModel
 
         viewModel?.internetConnectionLiveData?.observe(viewLifecycleOwner) { hasConnection ->
             if(hasConnection)
@@ -180,7 +173,7 @@ class MainForecastFragment : BaseFragment<MainForecastFragmentBinding>() {
                         is CurrentContract.CurrentPermissionState.Idle -> Unit
                         is CurrentContract.CurrentPermissionState.PermissionsGranted -> {
                             viewModel?.currentLocationLiveData?.observe(viewLifecycleOwner) { location ->
-                                Log.d("DEBUG_TAG", location.toString())
+                                infoLog("location: ${location.latitude};${location.longitude}")
                             }
                         }
                         is CurrentContract.CurrentPermissionState.PermissionsDenied -> {

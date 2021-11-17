@@ -4,8 +4,8 @@ import com.example.cleanweatherapp.R
 import com.example.cleanweatherapp.databinding.SearchForecastItemBinding
 import com.example.common.base.BaseViewHolder
 import com.example.common.other.Constants
+import com.example.common.other.Constants.toFormattedFullTime
 import com.example.common.other.Constants.toFormattedDescription
-import com.example.common.other.Constants.toFormattedHoursAndMinutes
 import com.example.presentation.models.search.ThreeHours
 import java.lang.Exception
 
@@ -15,7 +15,7 @@ class ThreeHoursViewHolder(
     override fun bind() {
         item?.let { threeHours ->
             with(binding) {
-                (threeHours.dt?.toFormattedHoursAndMinutes()).also { searchItemDate.text = it }
+                (threeHours.dt?.toFormattedFullTime()).also { searchItemDate.text = it }
                 (threeHours.windSpeed.toString() + Constants.UNITS_OF_MEASUREMENT_WIND_SPEED).also { searchItemWindSpeed.text = it }
                 (threeHours.main?.pressure.toString() + "mBar").also { searchItemPressure.text = it }
                 (threeHours.main?.humidity.toString() + "%").also { searchItemHumidity.text = it }

@@ -1,6 +1,6 @@
 package com.example.data.mappers
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.data.models.search.*
 import com.example.domain.models.search.City
 import com.example.domain.models.search.Main
@@ -9,7 +9,8 @@ import com.example.domain.models.search.ThreeHours
 import com.example.domain.models.search.Weather
 import javax.inject.Inject
 
-class SearchForecastDataDomainMapper @Inject constructor() : Mapper<SearchForecastDataModel, SearchForecastDomainModel> {
+class SearchForecastDataDomainMapper @Inject constructor() :
+    Mapper<SearchForecastDataModel, SearchForecastDomainModel> {
 
     override fun from(input: SearchForecastDataModel?): SearchForecastDomainModel {
         return SearchForecastDomainModel(

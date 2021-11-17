@@ -1,11 +1,12 @@
 package com.example.data.mappers
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.data.models.current.CurrentForecastDataModel
 import com.example.domain.models.current.*
 import javax.inject.Inject
 
-class CurrentForecastDataDomainMapper @Inject constructor(): Mapper<CurrentForecastDataModel, CurrentForecastDomainModel> {
+class CurrentForecastDataDomainMapper @Inject constructor():
+    Mapper<CurrentForecastDataModel, CurrentForecastDomainModel> {
     override fun from(input: CurrentForecastDataModel?): CurrentForecastDomainModel {
         return CurrentForecastDomainModel(
             current = Current(

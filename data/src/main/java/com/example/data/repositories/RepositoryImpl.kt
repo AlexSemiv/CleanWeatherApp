@@ -1,6 +1,6 @@
 package com.example.data.repositories
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.common.other.Resource
 import com.example.data.models.current.CurrentForecastDataModel
 import com.example.data.models.search.SearchForecastDataModel
@@ -83,6 +83,6 @@ class RepositoryImpl @Inject constructor(
         is UnknownHostException -> "No internet connection."
         is SocketTimeoutException -> "Server has been unresponsive for a long time."
         is HttpException -> "Server error response."
-        else -> e.message ?: ":("
+        else -> e.localizedMessage ?: ":("
     }
 }

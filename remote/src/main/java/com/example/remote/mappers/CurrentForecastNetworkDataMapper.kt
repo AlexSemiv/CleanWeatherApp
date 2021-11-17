@@ -1,11 +1,12 @@
 package com.example.remote.mappers
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.data.models.current.*
 import com.example.remote.models.current.CurrentForecastNetworkModel
 import javax.inject.Inject
 
-class CurrentForecastNetworkDataMapper @Inject constructor(): Mapper<CurrentForecastNetworkModel, CurrentForecastDataModel> {
+class CurrentForecastNetworkDataMapper @Inject constructor():
+    Mapper<CurrentForecastNetworkModel, CurrentForecastDataModel> {
 
     override fun from(input: CurrentForecastNetworkModel?): CurrentForecastDataModel {
         return CurrentForecastDataModel(

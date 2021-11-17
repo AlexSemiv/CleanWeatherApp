@@ -1,6 +1,6 @@
 package com.example.remote.sources
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.data.models.current.CurrentForecastDataModel
 import com.example.data.models.search.SearchForecastDataModel
 import com.example.remote.api.OpenWeatherApi

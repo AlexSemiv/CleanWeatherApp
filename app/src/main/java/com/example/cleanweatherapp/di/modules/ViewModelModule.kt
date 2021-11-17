@@ -1,8 +1,8 @@
 package com.example.cleanweatherapp.di.modules
 
 import androidx.lifecycle.ViewModel
-import com.example.common.other.Mapper
-import com.example.common.other.UseCase
+import com.example.common.base.Mapper
+import com.example.common.base.UseCase
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.models.search.SearchForecastDomainModel
 import com.example.domain.qualifiers.ViewModelKey

@@ -1,6 +1,6 @@
 package com.example.remote.mappers
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.data.models.search.*
 import com.example.remote.models.search.SearchForecastNetworkModel
 import javax.inject.Inject

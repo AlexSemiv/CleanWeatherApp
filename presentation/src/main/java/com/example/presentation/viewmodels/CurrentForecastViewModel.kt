@@ -3,9 +3,9 @@ package com.example.presentation.viewmodels
 import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
 import com.example.common.base.BaseViewModel
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.common.other.Resource
-import com.example.common.other.UseCase
+import com.example.common.base.UseCase
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.domain.usecases.current.CurrentForecastNetworkUseCaseArgument
 import com.example.presentation.contracts.CurrentContract

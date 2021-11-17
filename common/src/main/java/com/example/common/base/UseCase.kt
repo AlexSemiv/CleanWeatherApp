@@ -1,5 +1,6 @@
-package com.example.common.other
+package com.example.common.base
 
+import com.example.common.other.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface UseCase<DomainModel, Argument> {

@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.example.cleanweatherapp.databinding.SearchForecastItemBinding
 import com.example.common.base.BaseRecyclerAdapter
-import com.example.domain.qualifiers.ActivityScope
 import com.example.presentation.models.search.ThreeHours
 import javax.inject.Inject
 
-@ActivityScope
 class ThreeHoursAdapter @Inject constructor(
     callback: DiffUtil.ItemCallback<ThreeHours>
 ) : BaseRecyclerAdapter<ThreeHours, SearchForecastItemBinding, ThreeHoursViewHolder>(callback) {

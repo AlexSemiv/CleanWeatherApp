@@ -1,4 +1,4 @@
-package com.example.common.other
+package com.example.common.base
 
 interface Mapper<Input, Output> {
 

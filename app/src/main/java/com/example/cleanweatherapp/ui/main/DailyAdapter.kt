@@ -9,7 +9,6 @@ import com.example.domain.qualifiers.ActivityScope
 import com.example.presentation.models.current.Daily
 import javax.inject.Inject
 
-@ActivityScope
 class DailyAdapter @Inject constructor(
     callback: DiffUtil.ItemCallback<Daily>
 ): BaseRecyclerAdapter<Daily, MainForecastItemBinding, DailyViewHolder> (callback = callback) {

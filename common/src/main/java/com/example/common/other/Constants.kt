@@ -60,6 +60,14 @@ object Constants {
         "Friday, 10 January"
     }
 
+    fun Int.toFormattedFullTime(): String = try {
+        val sdf = SimpleDateFormat("d MMM | h:mm", Locale("en", "EN"))
+        val netDate = Date((this).toLong() * 1000)
+        sdf.format(netDate) ?: "1970-12-10"
+    } catch (e: Exception) {
+        "1970-12-10"
+    }
+
     const val LOCATION_REQUEST_INTERVAL = 30 * 1000L
     const val FASTEST_LOCATION_INTERVAL = 10 * 1000L
 

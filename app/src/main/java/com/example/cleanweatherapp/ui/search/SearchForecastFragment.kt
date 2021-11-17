@@ -2,7 +2,6 @@ package com.example.cleanweatherapp.ui.search
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,14 +11,12 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cleanweatherapp.R
 import com.example.common.base.BaseFragment
 import com.example.cleanweatherapp.databinding.SearchForecastFragmentBinding
 import com.example.cleanweatherapp.ui.MainActivity
-import com.example.common.other.Constants.TIMEOUT_SEARCHING
 import com.example.presentation.contracts.SearchContract
 import com.example.presentation.viewmodels.SearchForecastViewModel
 import com.example.presentation.viewmodels.factory.ViewModelFactory
@@ -68,18 +65,6 @@ class SearchForecastFragment: BaseFragment<SearchForecastFragmentBinding>() {
         prepareSearchView()
 
         subscribeToObservers()
-
-        binding.toolbar.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId) {
-                R.id.searchMenuSettings -> {
-                    findNavController().navigate(
-                        R.id.globalActionToSettingsFragment
-                    )
-                    true
-                }
-                else -> false
-            }
-        }
 
         binding.searchFragmentRecyclerView.apply {
             adapter = threeHoursAdapter

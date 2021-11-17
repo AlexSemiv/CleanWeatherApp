@@ -1,6 +1,6 @@
 package com.example.cleanweatherapp.di.modules
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.data.mappers.CurrentForecastDataDomainMapper
 import com.example.data.mappers.SearchForecastDataDomainMapper
 import com.example.data.models.current.CurrentForecastDataModel

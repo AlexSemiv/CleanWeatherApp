@@ -1,6 +1,6 @@
 package com.example.presentation.mappers
 
-import com.example.common.other.Mapper
+import com.example.common.base.Mapper
 import com.example.domain.models.current.CurrentForecastDomainModel
 import com.example.presentation.models.current.*
 import javax.inject.Inject
