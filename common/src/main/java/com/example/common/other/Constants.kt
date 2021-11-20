@@ -61,7 +61,7 @@ object Constants {
     }
 
     fun Int.toFormattedFullTime(): String = try {
-        val sdf = SimpleDateFormat("d MMM | h:mm", Locale("en", "EN"))
+        val sdf = SimpleDateFormat("d MMM | h:mm a", Locale("en", "EN"))
         val netDate = Date((this).toLong() * 1000)
         sdf.format(netDate) ?: "1970-12-10"
     } catch (e: Exception) {
